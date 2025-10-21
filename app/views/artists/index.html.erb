@@ -1,1 +1,26 @@
+<h1>🎨 Artists</h1>
 
+<% if @artists.present? %>
+  <table class="table table-hover mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Genre</th>
+        <th>Country</th>
+        <th>Albums</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @artists.each do |artist| %>
+        <tr>
+          <td><%= artist.name %></td>
+          <td><%= artist.genre %></td>
+          <td><%= artist.country %></td>
+          <td><%= artist.albums.count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No artists found yet. 🎵</p>
+<% end %>
