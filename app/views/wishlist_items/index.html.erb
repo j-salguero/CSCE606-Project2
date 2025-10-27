@@ -1,2 +1,26 @@
-<h1>WishlistItems#index</h1>
-<p>Find me in app/views/wishlist_items/index.html.erb</p>
+<div style="max-width:900px;margin:60px auto;text-align:center;font-family:'Segoe UI',sans-serif;">
+  <h1 style="font-size:2.4rem;color:#2E7D32;">💿 VinylVerse Wishlist</h1>
+  <p style="color:#555;">Albums you dream of adding to your collection 🎶</p>
+
+  <div style="margin:30px auto;">
+    <%= form_with model: @wishlist_item, local: true do |form| %>
+      <%= form.text_field :title, placeholder: "Album Title", style: "padding:10px;width:30%;border:1px solid #ccc;border-radius:5px;" %>
+      <%= form.text_field :artist, placeholder: "Artist", style: "padding:10px;width:30%;border:1px solid #ccc;border-radius:5px;margin-left:5px;" %>
+      <%= form.submit "➕ Add to Wishlist", style: "padding:10px 20px;background-color:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;" %>
+    <% end %>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;margin-top:30px;">
+    <% @wishlist_items.each do |item| %>
+      <div style="width:220px;margin:10px;padding:15px;border:1px solid #ccc;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);text-align:left;">
+        <h3 style="color:#333;"><%= item.title %></h3>
+        <p><strong>Artist:</strong> <%= item.artist %></p>
+        <%= button_to "Remove", wishlist_item_path(item), method: :delete, style: "background-color:#E53935;color:white;padding:6px 12px;border:none;border-radius:5px;cursor:pointer;" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @wishlist_items.empty? %>
+    <p style="margin-top:20px;color:#888;">Your wishlist is empty — start adding your favorites! 💖</p>
+  <% end %>
+</div>
