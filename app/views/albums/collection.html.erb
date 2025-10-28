@@ -1,0 +1,17 @@
+<div class="collection-container">
+  <h1>My Collection</h1>
+
+  <% if @albums.present? %>
+    <div class="albums-grid">
+      <% @albums.each do |album| %>
+        <div class="album-card">
+          <h3><%= album.title %></h3>
+          <p><strong>Artist:</strong> <%= album.artist %></p>
+          <p><strong>Year:</strong> <%= album.year %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>You haven’t added any albums yet.</p>
+  <% end %>
+</div>

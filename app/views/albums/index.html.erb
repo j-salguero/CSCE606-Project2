@@ -1,0 +1,11 @@
+<h1>My Collection</h1>
+
+<% if @albums.empty? %>
+  <p>No collection yet.</p>
+<% else %>
+  <ul>
+    <% @albums.each do |album| %>
+      <li><%= album.title %> – <%= album.artist %></li>
+    <% end %>
+  </ul>
+<% end %>
