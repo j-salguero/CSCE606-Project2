@@ -60,3 +60,5 @@ end
 group :production do
   gem "pg" # for Heroku deployment
 end
+
+gem "rspec", "~> 3.13"
