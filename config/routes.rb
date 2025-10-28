@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
-
   get "collection", to: "albums#collection", as: :collection
   root "albums#index"
   resources :collection_items, only: [ :index, :create, :destroy ]
