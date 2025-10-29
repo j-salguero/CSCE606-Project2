@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :collection_items, only: [ :index, :create, :destroy ]
   resources :wishlist_items, only: [ :index, :create, :destroy ]
   get "search", to: "search#index"
+  get '/auth/discogs', to: 'sessions#authenticate', as: :oauth_start
+  get '/auth/discogs/callback', to: 'sessions#callback', as: :oauth_callback
 end

@@ -23,5 +23,13 @@ module Musiccollection
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', 'environment_variables.yml')
+      if File.exist?(env_file)
+        YAML.load_file(env_file)[Rails.env].each do |key, value|
+          ENV[key] = value.to_s
+        end
+      end
+    end
   end
 end
