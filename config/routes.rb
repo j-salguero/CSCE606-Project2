@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   get "wishlist_items/index"
   get "collection_items/index"
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+  get "collection", to: "albums#collection", as: :collection
+  root "albums#index"
   get "home/index"
   root "home#index"
 
