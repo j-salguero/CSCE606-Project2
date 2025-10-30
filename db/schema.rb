@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_18_224750) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_28_010344) do
   create_table "collection_items", force: :cascade do |t|
     t.string "user_id"
     t.string "artist_id"
@@ -32,5 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_224750) do
     t.datetime "added_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "artist"
   end
 end

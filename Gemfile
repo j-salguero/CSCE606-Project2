@@ -1,5 +1,8 @@
 source "https://rubygems.org"
 
+#discogs ruby wrapper
+gem "discogs-wrapper"
+gem 'dotenv-rails', groups: [:development, :test]
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -60,3 +63,5 @@ end
 group :production do
   gem "pg" # for Heroku deployment
 end
+
+gem "rspec", "~> 3.13"
