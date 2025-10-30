@@ -8,3 +8,80 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+/* === Login Page Styling === */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e9e4f0, #d3cce3);
+}
+
+.login-card {
+  background: #f7f5fa;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+  color: #4a148c;
+}
+
+.icon {
+  font-size: 1.8rem;
+  margin-right: 6px;
+}
+
+.input-label {
+  display: block;
+  color: #4a148c;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 0.4rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #c2a7d0;
+  background-color: #ffffff;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.input-field:focus {
+  border-color: #7b1fa2;
+  outline: none;
+  box-shadow: 0 0 6px rgba(123, 31, 162, 0.3);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.8rem;
+  background: #7b1fa2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: #9c27b0;
+}
+
+.back-to-home {
+  color: #4a148c;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-to-home:hover {
+  text-decoration: underline;
+}

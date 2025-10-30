@@ -1,2 +1,31 @@
-<h1>CollectionItems#index</h1>
-<p>Find me in app/views/collection_items/index.html.erb</p>
+<!-- app/views/collection_items/index.html.erb -->
+<div class="collection-container py-5">
+  <h1 class="page-title text-center mb-5">🎶 My Collection</h1>
+
+  <% if @collection_items.present? %>
+    <div class="row justify-content-center">
+      <% @collection_items.each do |item| %>
+        <div class="col-md-4 mb-4">
+          <div class="album-card p-3 shadow-sm h-100">
+            <div class="album-info">
+              <h4 class="album-title"><%= item.title %></h4>
+              <p class="album-artist mb-2"><%= item.artist %></p>
+              <% if item.release_date.present? %>
+                <p class="album-year"><small>Released: <%= item.release_date %></small></p>
+              <% end %>
+            </div>
+            <div class="album-actions mt-3">
+              <%= link_to 'View Details', collection_item_path(item), class: "btn btn-teal" %>
+              <%= link_to '❤️', '#', class: "favorite-icon ms-2" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state text-center mt-5">
+      <p class="lead text-muted mb-4">Your collection is empty for now 🎧</p>
+      <%= link_to 'Add Albums to Collection', search__path, class: "btn btn-teal" %>
+    </div>
+  <% end %>
+</div>
