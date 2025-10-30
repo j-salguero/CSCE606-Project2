@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
+
   # Pages
-  
-  root "sessions#new"
+  get "home/index"
+  root "home#index"
 
   # Collection & Wishlist
   get "collection", to: "albums#collection", as: :collection
@@ -17,5 +18,4 @@ Rails.application.routes.draw do
   resources :wishlist_items, only: [:index, :create, :destroy]
 
   # Search
-  get "search", to: "search#index"
-end
+  get "send
