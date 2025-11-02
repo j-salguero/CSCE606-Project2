@@ -47,6 +47,14 @@ class DiscogsService
     end
   end
 
+    def find_artist_id_by_name(name)
+    res = search_artist(name)
+    res&.results&.first&.id
+    rescue StandardError => e
+      Rails.logger.error("find_artist_id_by_name failed: #{e.class}: #{e.message}")
+      nil
+  end
+
   def search_artist_releases(artist_name)
     begin
       Rails.logger.info "Searching for artist: #{artist_name}"

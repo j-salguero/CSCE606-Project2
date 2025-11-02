@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :artists
+  resources :artists do
+    collection do
+      get :lookup
+    end
+  end
+
   get "login",  to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
@@ -13,10 +18,10 @@ Rails.application.routes.draw do
   #root "albums#index"
   get "home/index"
   root "home#index"
+  get "artists/lookup", to: "artists#lookup", as: :artist_lookup
 
   resources :collection_items, only: [ :index, :create, :destroy ]
   resources :wishlist_items, only: [ :index, :create, :destroy ]
-  resources :artists
   get "search", to: "search#index"
   get '/auth/discogs', to: 'sessions#authenticate', as: :oauth_start
   get '/auth/discogs/callback', to: 'sessions#callback', as: :oauth_callback

@@ -76,14 +76,43 @@ class ArtistsController < ApplicationController
     end
   end
 
+  # Want to be able to lookup artist info on Discogs
+  def lookup
+    name = params[:name].to_s.strip
+    
+    respond_to do |format|
+    if name.blank?
+      format.html { redirect_to artists_path, alert: "No artist name provided." }
+      format.json { render json: { error: "Artist name is required" }, status: :unprocessable_entity }
+    else
+      begin
+        @artist = Artist.find_or_create_by!(name: name)
+
+        format.html { redirect_to @artist, notice: "Showing #{name}." }
+        format.html { render :show, status: :ok, location: @artist }
+ 
+      rescue ActiveRecord::RecordInvalid => e
+        format.html { redirect_to artists_path, alert: e.record.errors.full_messages.to_sentence }
+        format.json { render json: { errors: e.record.errors }, status: :unprocessable_entity }
+      rescue => e
+        Rails.logger.error("artists#lookup error: #{e.class}: #{e.message}")
+        format.html { redirect_to artists_path, alert: "Could not look up that artist." }
+        format.json { render json: { error: "lookup_failed" }, status: :internal_server_error }
+      end
+    end
+  end
+end
+
+
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_artist
-      @artist = Artist.find(params.expect(:id))
+      @artist = Artist.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def artist_params
-      params.expect(artist: [ :name, :genre, :country ])
+      params.require(:artist).permit( :name, :genre, :country, :discogs_id, :discogs_uri )
     end
 end
