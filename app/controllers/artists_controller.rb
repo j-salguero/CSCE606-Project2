@@ -15,7 +15,7 @@ class ArtistsController < ApplicationController
 
   # GET /artists/1 or /artists/1.json
   def show
-    @artist = Artist.find(params[:id]
+    @artist = Artist.find(params[:id])
     discogs = DiscogsService.new
     discogs_id = @artist.try(:discogs_id) || discogs.find_artist_id_by_name(@artist.name)
 
