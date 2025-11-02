@@ -25,3 +25,105 @@
     <p>No results found.</p>
   <% end %>
 </div>
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+  <h1>Search Discogs</h1>
+
+  <!-- Artist Search Form -->
+  <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h2>Search by Artist</h2>
+    <%= form_with url: search_path, method: :get, local: true do %>
+      <%= label_tag :artist_name, "Artist Name" %>
+      <%= text_field_tag :artist_name, params[:artist_name], placeholder: "e.g., The Beatles", style: "width: 300px; padding: 8px; margin: 0 10px;" %>
+      <%= submit_tag "Search Artist", style: "padding: 8px 16px;" %>
+    <% end %>
+  </div>
+
+  <!-- Album Search Form -->
+  <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h2>Search by Album</h2>
+    <%= form_with url: search_path, method: :get, local: true do %>
+      <%= label_tag :album_name, "Album Name" %>
+      <%= text_field_tag :album_name, params[:album_name], placeholder: "e.g., Abbey Road", style: "width: 300px; padding: 8px; margin: 0 10px;" %>
+      <%= submit_tag "Search Album", style: "padding: 8px 16px;" %>
+    <% end %>
+  </div>
+
+  <!-- Artist Search Results -->
+  <% if @search_type == 'artist' %>
+    <% if @search_data && @search_data.artist %>
+      <h2><%= @search_data.artist.title %>'s Releases</h2>
+      
+      <% if @search_data.releases.any? %>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+          <% @search_data.releases.each do |release| %>
+            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
+              <% if release.thumb.present? %>
+                <img src="<%= release.thumb %>" alt="<%= release.title %>" style="width: 100%; height: auto; margin-bottom: 10px;">
+              <% end %>
+              
+              <h3 style="margin: 10px 0; font-size: 16px;"><%= release.title %></h3>
+              <p><strong>Year:</strong> <%= release.year || 'N/A' %></p>
+              <p><strong>Format:</strong> <%= release.format || 'N/A' %></p>
+              <p><strong>Label:</strong> <%= release.label || 'N/A' %></p>
+              
+              <% if release.resource_url.present? %>
+                <a href="<%= release.resource_url %>" target="_blank" style="color: #007bff;">View on Discogs</a>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>No releases found for this artist.</p>
+      <% end %>
+      
+    <% elsif params[:artist_name].present? %>
+      <p>No artist found for "<%= params[:artist_name] %>". Try a different spelling.</p>
+    <% end %>
+  <% end %>
+
+  <!-- Album Search Results -->
+  <% if @search_type == 'album' %>
+    <% if @album_results && @album_results.results.any? %>
+      <h2>Album Search Results for "<%= params[:album_name] %>"</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+        <% @album_results.results.each do |release| %>
+          <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
+            <% if release.thumb.present? %>
+              <img src="<%= release.thumb %>" alt="<%= release.title %>" style="width: 100%; height: auto; margin-bottom: 10px;">
+            <% else %>
+              <div style="width: 100%; height: 200px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                <span style="color: #999;">No Image</span>
+              </div>
+            <% end %>
+            
+            <h3 style="margin: 10px 0; font-size: 16px;"><%= release.title %></h3>
+            
+            <% if release.respond_to?(:year) && release.year.present? %>
+              <p><strong>Year:</strong> <%= release.year %></p>
+            <% end %>
+            
+            <% if release.respond_to?(:format) && release.format.present? %>
+              <p><strong>Format:</strong> <%= release.format.is_a?(Array) ? release.format.join(', ') : release.format %></p>
+            <% end %>
+            
+            <% if release.respond_to?(:label) && release.label.present? %>
+              <p><strong>Label:</strong> <%= release.label.is_a?(Array) ? release.label.join(', ') : release.label %></p>
+            <% end %>
+            
+            <% if release.respond_to?(:country) && release.country.present? %>
+              <p><strong>Country:</strong> <%= release.country %></p>
+            <% end %>
+            
+            <% if release.resource_url.present? %>
+              <a href="<%= release.resource_url %>" target="_blank" style="color: #007bff; display: block; margin-top: 10px;">View on Discogs</a>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      
+    <% elsif params[:album_name].present? %>
+      <p>No albums found for "<%= params[:album_name] %>". Try a different search term.</p>
+    <% end %>
+  <% end %>
+</div>

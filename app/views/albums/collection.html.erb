@@ -1,0 +1,29 @@
+<div class="collection-container">
+  <h1>My Collection</h1>
+
+  <% if @albums.present? %>
+    <div class="albums-grid">
+      <% @albums.each do |album| %>
+        <div class="album-card">
+          <h3><%= album.title %></h3>
+          
+          <p>
+            <strong>Artist:</strong> 
+            <% artist_obj = (album.respond_to?(:artist) ? album.artist : nil) %>
+            <% artist_name = artist_obj&.name || (album.respond_to?(:artist_name) && album.artist_name) || album.artist %>
+            <% if artist_obj.present? %>
+              <%= link_to artist_name, artist_path(artist_obj) %>
+            <% elsif artist_name.present? %>
+              <%= link_to artist_name, artist_lookup_path(name: artist_name) %>
+            <% else %>
+	     -
+            <% end %>
+          </p>
+          <p><strong>Year:</strong> <%= album.year %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>You haven’t added any albums yet.</p>
+  <% end %>
+</div>
