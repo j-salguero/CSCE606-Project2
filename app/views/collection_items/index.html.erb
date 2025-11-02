@@ -2,6 +2,7 @@
 <div class="collection-page py-5 text-center">
   <h1 class="page-title mb-5">🎵 My Vinyl Space</h1>
 
+<<<<<<< HEAD
   <!-- 🎧 Explore Albums Section -->
   <section class="explore-section mb-5">
     <h2 class="section-title mb-4">Explore Albums</h2>
@@ -23,6 +24,37 @@
           <div class="d-flex justify-content-center gap-2">
             <%= button_to 'Add to Collection', collection_items_path(album_id: album[:id]), method: :post, class: "btn btn-info btn-sm" %>
             <%= button_to 'Add to Wishlist', wishlist_items_path(album_id: album[:id]), method: :post, class: "btn btn-outline-light btn-sm" %>
+=======
+  <% if @collection_items.present? %>
+    <div class="row justify-content-center">
+      <% @collection_items.each do |item| %>
+        <div class="col-md-4 mb-4">
+          <div class="album-card p-3 shadow-sm h-100">
+            <div class="album-info">
+              <h4 class="album-title"><%= item.title %></h4>
+              <p>
+              <p class="album-artist mb-2">
+                <% album = item.respond_to?(:album) ? item.album : nil %>
+                <% artist_obj  = album&.respond_to?(:artist) ? album.artist : nil %>
+                <% artist_name = artist_obj&.name || (album&.respond_to?(:artist_name) && album.artist_name) || item.try(:artist) || "-" %>
+
+                <% if artist_obj.present? %>
+                  <%= link_to artist_name, artist_path(artist_obj) %>
+                <% elsif artist_name.present? && artist_name != "-" %>
+                  <%= link_to artist_name, artist_lookup_path(name: artist_name) %>
+                <% else %>
+                  -
+                <% end %>
+              </p>
+              <% if item.release_date.present? %>
+                <p class="album-year"><small>Released: <%= item.release_date %></small></p>
+              <% end %>
+            </div>
+            <div class="album-actions mt-3">
+              <%= link_to 'View Details', collection_item_path(item), class: "btn btn-teal" %>
+              <%= link_to '❤️', '#', class: "favorite-icon ms-2" %>
+            </div>
+>>>>>>> main
           </div>
         </div>
       <% end %>

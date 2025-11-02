@@ -8,6 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+<<<<<<< HEAD
 /* === Login Page Styling === */
 .login-container {
   display: flex;
@@ -158,4 +159,13 @@ body {
   color: #00e1ff;
   font-weight: 600;
   margin-bottom: 20px;
+=======
+
+.site-header {
+    text-align: center;
+}
+
+.site-footer {
+    text-align: center;
+>>>>>>> main
 }

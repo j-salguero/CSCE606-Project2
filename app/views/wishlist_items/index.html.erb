@@ -1,2 +1,29 @@
-<h1>WishlistItems#index</h1>
-<p>Find me in app/views/wishlist_items/index.html.erb</p>
+
+
+<h1>🎧 My Wishlist</h1>
+<p>Albums I want to add to my collection:</p>
+
+<div class="wishlist-container">
+  <% @wishlist_items = [
+      { title: "Thriller", artist: "Michael Jackson", year: 1982 },
+      { title: "Back to Black", artist: "Amy Winehouse", year: 2006 },
+      { title: "Random Access Memories", artist: "Daft Punk", year: 2013 }
+    ] %>
+
+  <% @wishlist_items.each do |item| %>
+    <div class="wishlist-card" style="border:1px solid #ccc; padding:10px; margin:10px; border-radius:10px;">
+      <h3><%= item[:title] %></h3>
+      <p><strong>Artist:</strong>
+        <% artist_obj  = (item.respond_to?(:album) && item.album.respond_to?(:artist)) ? item.album.artist : nil %>
+        <% artist_name = artist_obj&.name || (item.is_a?(Hash) ? item[:artist] : item.try(:artist)) %>
+        <% if artist_obj.present? %>
+          <%= link_to artist_name, artist_path(artist_obj) %>
+        <% else %>
+          <%= link_to artist_name, artist_lookup_path(name: artist_name) %>
+        <% end %>
+      </p>
+      <p><strong>Year:</strong> <%= item[:year] %></p>
+    </div>
+  <% end %>
+</div>
+
