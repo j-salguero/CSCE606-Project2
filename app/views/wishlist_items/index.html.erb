@@ -13,7 +13,15 @@
   <% @wishlist_items.each do |item| %>
     <div class="wishlist-card" style="border:1px solid #ccc; padding:10px; margin:10px; border-radius:10px;">
       <h3><%= item[:title] %></h3>
-      <p><strong>Artist:</strong> <%= item[:artist] %></p>
+      <p><strong>Artist:</strong>
+        <% artist_obj  = (item.respond_to?(:album) && item.album.respond_to?(:artist)) ? item.album.artist : nil %>
+        <% artist_name = artist_obj&.name || (item.is_a?(Hash) ? item[:artist] : item.try(:artist)) %>
+        <% if artist_obj.present? %>
+          <%= link_to artist_name, artist_path(artist_obj) %>
+        <% else %>
+          <%= link_to artist_name, artist_lookup_path(name: artist_name) %>
+        <% end %>
+      </p>
       <p><strong>Year:</strong> <%= item[:year] %></p>
     </div>
   <% end %>
