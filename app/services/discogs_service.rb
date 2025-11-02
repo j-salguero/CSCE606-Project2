@@ -99,7 +99,7 @@ class DiscogsService
 end
 
   def get_artist_releases(artist_id, page: 1, per_page: 50)
-    @client.get_artist_release(artist_id, page:page, per_page: per_page)
+    @client.get_artist_releases(artist_id, page:page, per_page: per_page)
   rescue StandardError => e
     Rails.logger.error("Error fetching releases for artist #{artist_id}: #{e.message}")
     OpenStruct.new(releases: [], pagination: OpenStruct.new(items: 0, pages: 0))
