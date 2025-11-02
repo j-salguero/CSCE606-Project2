@@ -1,3 +1,30 @@
+<div style="max-width:800px;margin:50px auto;text-align:center;">
+<h1>🎵  VinylVerse</h1>
+  <p>Explore your collection or search for an artist or album below.</p>
+
+  <!-- Search form -->
+  <%= form_with url: root_path, method: :get, local: true do |form| %>
+    <%= form.text_field :query, placeholder: "Search by artist or album", 
+      value: params[:query], 
+      style: "width:60%;padding:8px;border-radius:5px;border:1px solid #ccc;" %>
+    <%= form.submit "Search", style: "padding:8px 16px;border:none;background-color:#4CAF50;color:white;border-radius:5px;cursor:pointer;" %>
+  <% end %>
+
+  <!-- Collection results -->
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;margin-top:30px;">
+    <% @collection_items.each do |item| %>
+      <div style="width:200px;margin:10px;padding:10px;border:1px solid #ccc;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+        <h3><%= item.title %></h3>
+        <p><strong>Artist:</strong> <%= item.artist %></p>
+        <p><strong>Year:</strong> <%= item.year %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @collection_items.empty? %>
+    <p>No results found.</p>
+  <% end %>
+</div>
 <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
   <h1>Search Discogs</h1>
 
