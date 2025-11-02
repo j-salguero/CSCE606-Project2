@@ -8,8 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
-<<<<<<< HEAD
-/* === Login Page Styling === */
+
 .login-container {
   display: flex;
   align-items: center;
@@ -141,7 +140,7 @@ body {
   height: 280px;
   object-fit: cover;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .btn {
@@ -152,20 +151,19 @@ body {
 .page-title {
   color: #b993ff;
   font-weight: bold;
-  text-shadow: 0 0 6px rgba(185,147,255,0.6);
+  text-shadow: 0 0 6px rgba(185, 147, 255, 0.6);
 }
 
 .section-title {
   color: #00e1ff;
   font-weight: 600;
-  margin-bottom: 20px;
-=======
+}
 
 .site-header {
-    text-align: center;
+  text-align: center;
 }
 
 .site-footer {
-    text-align: center;
->>>>>>> main
+  text-align: center;
+
 }

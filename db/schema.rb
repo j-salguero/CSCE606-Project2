@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
+
 ActiveRecord::Schema[8.0].define(version: 2025_10_30_232328) do
   create_table "artists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
+
 ActiveRecord::Schema[8.0].define(version: 2025_11_02_140811) do
   create_table "albums", force: :cascade do |t|
     t.string "title"
@@ -37,7 +37,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_140811) do
     t.string "api_artist_id"
     t.string "discogs_id"
     t.string "discogs_uri"
->>>>>>> main
+
   end
 
   create_table "collection_items", force: :cascade do |t|

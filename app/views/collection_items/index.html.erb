@@ -2,7 +2,7 @@
 <div class="collection-page py-5 text-center">
   <h1 class="page-title mb-5">🎵 My Vinyl Space</h1>
 
-<<<<<<< HEAD
+
   <!-- 🎧 Explore Albums Section -->
   <section class="explore-section mb-5">
     <h2 class="section-title mb-4">Explore Albums</h2>
@@ -24,7 +24,7 @@
           <div class="d-flex justify-content-center gap-2">
             <%= button_to 'Add to Collection', collection_items_path(album_id: album[:id]), method: :post, class: "btn btn-info btn-sm" %>
             <%= button_to 'Add to Wishlist', wishlist_items_path(album_id: album[:id]), method: :post, class: "btn btn-outline-light btn-sm" %>
-=======
+
   <% if @collection_items.present? %>
     <div class="row justify-content-center">
       <% @collection_items.each do |item| %>
@@ -54,7 +54,7 @@
               <%= link_to 'View Details', collection_item_path(item), class: "btn btn-teal" %>
               <%= link_to '❤️', '#', class: "favorite-icon ms-2" %>
             </div>
->>>>>>> main
+
           </div>
         </div>
       <% end %>

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 <<<<<<< HEAD
   # Login / Logout
-=======
+
   resources :artists do
     collection do
       get :lookup
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   get "wishlist_items/index"
   get "collection_items/index"
->>>>>>> main
+
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
