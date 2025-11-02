@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   root "sessions#new"
 
   # Collection & Wishlist
-  get "collection", to: "albums#collection", as: :collection
+  get "collection", to: "collection_items#index", as: :collection
   get "wishlist_items/index"
   get "collection_items/index"
 
