@@ -9,10 +9,161 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e9e4f0, #d3cce3);
+}
+
+.login-card {
+  background: #f7f5fa;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+  color: #4a148c;
+}
+
+.icon {
+  font-size: 1.8rem;
+  margin-right: 6px;
+}
+
+.input-label {
+  display: block;
+  color: #4a148c;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 0.4rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #c2a7d0;
+  background-color: #ffffff;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.input-field:focus {
+  border-color: #7b1fa2;
+  outline: none;
+  box-shadow: 0 0 6px rgba(123, 31, 162, 0.3);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.8rem;
+  background: #7b1fa2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: #9c27b0;
+}
+
+.back-to-home {
+  color: #4a148c;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-to-home:hover {
+  text-decoration: underline;
+}
+
+.album-card {
+  background-color: #111;
+  color: #fff;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.album-card:hover {
+  transform: scale(1.05);
+}
+
+.page-title {
+  color: #b993ff;
+  font-weight: bold;
+}
+
+.section-title {
+  color: #00e1ff;
+  font-weight: 600;
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.album-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.album-card {
+  background-color: #111;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  width: 280px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.album-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.vinyl-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.page-title {
+  color: #b993ff;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(185, 147, 255, 0.6);
+}
+
+.section-title {
+  color: #00e1ff;
+  font-weight: 600;
+}
+
 .site-header {
-    text-align: center;
+  text-align: center;
 }
 
 .site-footer {
-    text-align: center;
+  text-align: center;
+
 }

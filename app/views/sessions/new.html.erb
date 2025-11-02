@@ -1,25 +1,29 @@
-<div class="login-container" style="max-width:400px;margin:80px auto;text-align:center;padding:20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
 
-  <h2 style="margin-top:15px;">🎵 Login to VinylVerse</h2>
 
-  <% if flash[:alert] %>
-    <p style="color:red;"><%= flash[:alert] %></p>
-  <% end %>
 
-  <%= form_with url: login_path, local: true do |form| %>
-    <div style="margin-top:15px;">
-      <%= form.label :email %><br>
-      <%= form.email_field :email, placeholder: "Enter your email", style: "width:100%;padding:8px;border-radius:5px;border:1px solid #ccc;" %>
-    </div>
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="login-title">
+      <span class="icon">🎧</span>
+      Welcome Back to <span class="highlight">VinylVerse</span>
+    </h1>
 
-    <div style="margin-top:10px;">
-      <%= form.label :password %><br>
-      <%= form.password_field :password, placeholder: "Enter your password", style: "width:100%;padding:8px;border-radius:5px;border:1px solid #ccc;" %>
-    </div>
+    <%= form_with url: login_path, method: :post, local: true do |form| %>
+      <div class="input-group">
+        <%= form.label :email, "Email", class: "input-label" %>
+        <%= form.email_field :email, class: "input-field" %>
+      </div>
 
-    <div style="margin-top:20px;">
-      <%= form.submit "Login", style: "background-color:#4CAF50;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;" %>
-    </div>
-  <% end %>
+      <div class="input-group">
+        <%= form.label :password, "Password", class: "input-label" %>
+        <%= form.password_field :password, class: "input-field" %>
+      </div>
 
+      <%= form.submit "Login", class: "btn-login" %>
+    <% end %>
+
+    <p class="back-link">
+      ← <%= link_to "Back to Collection", collection_path, class: "back-link" %>
+    </p>
+  </div>
 </div>

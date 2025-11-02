@@ -3,13 +3,19 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # example login logic — adjust for your app
-    # You may not have authentication yet, so just simulate success
-    redirect_to root_path, notice: "Logged in successfully."
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to collection_items_path, notice: "Welcome back to VinylVerse!"
+    else
+      flash[:alert] = "Invalid email or password"
+      render :new
+    end
   end
 
   def destroy
-    # example logout logic — adjust as needed
-    redirect_to login_path, notice: "Logged out successfully."
+    session[:user_id] = nil
+    redirect_to login_path, notice: "You have been logged out."
   end
 end
+
