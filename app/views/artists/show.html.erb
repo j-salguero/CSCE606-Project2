@@ -1,6 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @artist %>
+<h2><%= @artist.name %></h2>
+
+<p><strong>Genre:</strong> <%= @artist.genre.presence || "-" %></p>
+<p><strong>Country:</strong> <%= @artist.country.presence || "-" %></p>
+<p><strong>Releases on Discogs:</strong> <%= (@discogs_releases_count || 0) %></p>
+
+<hr>
+<h3>In Your Collection</h3>
+<% if (@collection_albums || []).any? %>
+  <ul>
+    <% @collection_albums.each do |a| %>
+      <li><%= a.title %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>None yet.</p>
+<% end %>
+
+<h3>In Your Wishlist</h3>
+<% if (@wishlist_albums || []).any? %>
+  <ul>
+    <% @wishlist_albums.each do |a| %>
+      <li><%= a.title %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>None yet.</p>
+<% end %>
 
 <div>
   <%= link_to "Edit this artist", edit_artist_path(@artist) %> |

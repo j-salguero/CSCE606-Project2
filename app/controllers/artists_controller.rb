@@ -3,11 +3,30 @@ class ArtistsController < ApplicationController
 
   # GET /artists or /artists.json
   def index
-    @artists = Artist.all
+    #@artists = Artist.all
+    @q = params[:q].to_s.strip
+    @artists = 
+      if @q.present?
+        Artist.where("name ILIKE ?", "%#{@q}%").order(:name)
+      else
+        Artist.order(:name)
+      end
   end
 
   # GET /artists/1 or /artists/1.json
   def show
+    @artist = Artist.find(params[:id]
+    discogs = DiscogsService.new
+    discogs_id = @artist.try(:discogs_id) || discogs.find_artist_id_by_name(@artist.name)
+
+    @discogs_releases_count = 
+      if discogs_id.present?
+        Rails.cache.fetch(["discogs_releases_count", discogs_id], expires_in: 30.minutes) do
+          discogs.releases_count_for_artist(artist_id: discogs_id)
+      end
+      else
+        0 #artist not in discogs
+      end
   end
 
   # GET /artists/new
