@@ -24,6 +24,11 @@
           <div class="d-flex justify-content-center gap-2">
             <%= button_to 'Add to Collection', collection_items_path(album_id: album[:id]), method: :post, class: "btn btn-info btn-sm" %>
             <%= button_to 'Add to Wishlist', wishlist_items_path(album_id: album[:id]), method: :post, class: "btn btn-outline-light btn-sm" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
 
   <% if @collection_items.present? %>
     <div class="row justify-content-center">
@@ -59,7 +64,7 @@
         </div>
       <% end %>
     </div>
-  </section>
+  <% end %>
 
   <!-- 💿 My Collection Section -->
   <section class="collection-section mb-5">
