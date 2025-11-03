@@ -51,9 +51,9 @@
                   -
                 <% end %>
               </p>
-              <% if item.release_date.present? %>
-                <p class="album-year"><small>Released: <%= item.release_date %></small></p>
-              <% end %>
+              # <% if item.release_date.present? %>
+              #   <p class="album-year"><small>Released: <%= item.release_date %></small></p>
+              # <% end %>
             </div>
             <div class="album-actions mt-3">
               <%= link_to 'View Details', collection_item_path(item), class: "btn btn-teal" %>

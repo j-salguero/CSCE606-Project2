@@ -107,6 +107,7 @@ GEM
       hashie (~> 3.0)
       httparty (~> 0.14)
       oauth (~> 0.5.1)
+    docile (1.4.1)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -283,6 +284,14 @@ GEM
     rspec-mocks (3.13.6)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
+    rspec-rails (8.0.2)
+      actionpack (>= 7.2)
+      activesupport (>= 7.2)
+      railties (>= 7.2)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
     rspec-support (3.13.6)
     rubocop (1.81.6)
       json (~> 2.3)
@@ -321,6 +330,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.13.2)
+    simplecov_json_formatter (0.1.4)
     sqlite3 (2.7.4-aarch64-linux-gnu)
     sqlite3 (2.7.4-aarch64-linux-musl)
     sqlite3 (2.7.4-arm-linux-gnu)
@@ -371,6 +386,7 @@ PLATFORMS
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin-23
+  arm64-darwin-25
   x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
@@ -390,8 +406,10 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0.3)
   rspec (~> 3.13)
+  rspec-rails
   rubocop-rails-omakase
   selenium-webdriver
+  simplecov
   sqlite3
   thruster
   tzinfo-data

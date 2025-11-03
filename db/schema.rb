@@ -26,8 +26,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_140811) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "api_provider"
-    t.string "api_artist_id"
     t.string "discogs_id"
     t.string "discogs_uri"
   end
