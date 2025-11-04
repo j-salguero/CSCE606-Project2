@@ -7,11 +7,10 @@ class DiscogsService
     if ENV['DISCOGS_TOKEN'].present?
       @client = Discogs::Wrapper.new("VinylTracker", user_token: ENV['DISCOGS_TOKEN'])
     else
-      # Fallback to app key/secret (may have limited access)
-      @client = Discogs::Wrapper.new("VinylTracker") do |c|
-        c.app_key = ENV['DISCOGS_API_KEY']
-        c.app_secret = ENV['DISCOGS_API_SECRET']
-      end
+      # Use app identity for authenticated requests
+      @client = Discogs::Wrapper.new("VinylTracker", 
+        app_key: ENV['DISCOGS_API_KEY'],
+        app_secret: ENV['DISCOGS_API_SECRET'])
     end
   end
 
@@ -47,36 +46,29 @@ class DiscogsService
     end
   end
 
-    def find_artist_id_by_name(name)
-    res = search_artist(name)
-    res&.results&.first&.id
-    rescue StandardError => e
-      Rails.logger.error("find_artist_id_by_name failed: #{e.class}: #{e.message}")
-      nil
-  end
-
   def search_artist_releases(artist_name)
     begin
       Rails.logger.info "Searching for artist: #{artist_name}"
-      Rails.logger.info "API Key: #{ENV['DISCOGS_API_KEY'][0..5]}... (truncated)"
+      Rails.logger.info "API Key: #{ENV['DISCOGS_TOKEN']&.first(6)}... (truncated)"
       
       # First find the artist
       artist_results = @client.search(artist_name, type: :artist, per_page: 1)
-      Rails.logger.info "Artist search completed, found #{artist_results.results.count} results"
+      Rails.logger.info "Artist search completed, found #{artist_results&.results&.count || 0} results"
       
-      if artist_results.results.any?
+      if artist_results && artist_results.results && artist_results.results.any?
         artist = artist_results.results.first
         artist_id = artist.id
         
         # Then get their releases
         releases = @client.get_artist_releases(artist_id, per_page: 50)
-        Rails.logger.info "Found #{releases.releases.count} releases for artist ID #{artist_id}"
+        release_list = releases.respond_to?(:releases) ? releases.releases : []
+        Rails.logger.info "Found #{release_list.count} releases for artist ID #{artist_id}"
         
         # Return structured data
         OpenStruct.new(
           artist: artist,
-          releases: releases.releases,
-          pagination: releases.pagination
+          releases: release_list,
+          pagination: releases.respond_to?(:pagination) ? releases.pagination : nil
         )
       else
         OpenStruct.new(artist: nil, releases: [], pagination: nil)
@@ -87,6 +79,7 @@ class DiscogsService
     rescue StandardError => e
       Rails.logger.error("Discogs API error: #{e.message}")
       Rails.logger.error("Error class: #{e.class}")
+      Rails.logger.error("Backtrace: #{e.backtrace.first(5).join("\n")}")
       OpenStruct.new(artist: nil, releases: [], pagination: nil)
     end
   end

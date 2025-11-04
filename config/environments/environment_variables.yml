@@ -1,0 +1,5 @@
+# ./config/environment_variables.yml
+
+development:
+    DISCOGS_API_KEY: IwiYJcQWWJRrnEHKgsJe
+    DISCOGS_API_SECRET: VIwNOIOxNFQUjboecWogChMlDykLEsWO

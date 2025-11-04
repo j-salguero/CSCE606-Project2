@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_02_140811) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_03_221736) do
   create_table "albums", force: :cascade do |t|
     t.string "title"
     t.integer "year"
     t.integer "artist_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url"
     t.index ["artist_id"], name: "index_albums_on_artist_id"
   end
 
@@ -26,8 +27,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_140811) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "api_provider"
-    t.string "api_artist_id"
     t.string "discogs_id"
     t.string "discogs_uri"
   end
@@ -38,9 +37,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_140811) do
     t.datetime "added_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "album_id", null: false
     t.string "title"
     t.string "artist"
+    t.integer "album_id", null: false
     t.index ["album_id"], name: "index_collection_items_on_album_id"
   end
 
@@ -59,6 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_140811) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.string "artist"
+    t.string "image_url"
   end
 
   add_foreign_key "albums", "artists"
