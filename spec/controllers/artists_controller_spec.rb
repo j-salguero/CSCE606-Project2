@@ -21,4 +21,7 @@ RSpec.describe ArtistsController, type: :controller do
       expect(assigns(:q)).to eq("taylor")
     end
   end
+
+  
+
 end
