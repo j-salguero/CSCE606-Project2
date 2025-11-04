@@ -300,6 +300,61 @@
           null
         ]
       },
+      "/Users/jonathonvega/Desktop/Grad School/Texas A&M/CSCE 606 Software Engineering/musiccollection/app/controllers/wishlist_items_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          null,
+          2,
+          null,
+          2,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          2,
+          2,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
       "/Users/jonathonvega/Desktop/Grad School/Texas A&M/CSCE 606 Software Engineering/musiccollection/app/models/artist.rb": {
         "lines": [
           1,
@@ -433,6 +488,12 @@
           null
         ]
       },
+      "/Users/jonathonvega/Desktop/Grad School/Texas A&M/CSCE 606 Software Engineering/musiccollection/app/models/wishlist_item.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
       "/Users/jonathonvega/Desktop/Grad School/Texas A&M/CSCE 606 Software Engineering/musiccollection/app/controllers/albums_controller.rb": {
         "lines": [
           0,
@@ -468,63 +529,6 @@
         ],
         "branches": {}
       },
-      "/Users/jonathonvega/Desktop/Grad School/Texas A&M/CSCE 606 Software Engineering/musiccollection/app/controllers/wishlist_items_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
       "/Users/jonathonvega/Desktop/Grad School/Texas A&M/CSCE 606 Software Engineering/musiccollection/app/jobs/application_job.rb": {
         "lines": [
           0,
@@ -552,15 +556,8 @@
           0
         ],
         "branches": {}
-      },
-      "/Users/jonathonvega/Desktop/Grad School/Texas A&M/CSCE 606 Software Engineering/musiccollection/app/models/wishlist_item.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {}
       }
     },
-    "timestamp": 1762293174
+    "timestamp": 1762297662
   }
 }
