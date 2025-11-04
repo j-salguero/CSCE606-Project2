@@ -566,3 +566,24 @@ body.sessions-new {
   text-decoration: underline;
   color: #e6ccff;
 }
+
+.wishlist-section .album-artist { 
+  position: relative; 
+  z-index: 2;              
+}
+
+.wishlist-section .album-artist a.artist-link {
+  display: inline-block;   
+  position: relative;
+  z-index: 3;              
+  color: #fff !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  pointer-events: auto;    
+}
+
+.album-card form,
+.album-card .remove-btn {
+  position: relative;
+  z-index: 0;
+}

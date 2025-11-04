@@ -27,6 +27,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_221736) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "api_provider"
+    t.string "api_artist_id"
     t.string "discogs_id"
     t.string "discogs_uri"
   end
@@ -37,9 +39,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_221736) do
     t.datetime "added_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "album_id", null: false
     t.string "title"
     t.string "artist"
-    t.integer "album_id", null: false
     t.index ["album_id"], name: "index_collection_items_on_album_id"
   end
 
