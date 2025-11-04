@@ -6,29 +6,55 @@
     <% if @wishlist_items.present? %>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
         <% @wishlist_items.each do |item| %>
-          <div class="wishlist-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
+          <div class="wishlist-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #140020; box-shadow: 0 0 15px rgba(155, 0, 255, 0.4);">
             <% if item.image_url.present? %>
-              <img src="<%= item.image_url %>" alt="<%= item.title %>" style="width: 100%; height: auto; margin-bottom: 10px; border-radius: 4px;">
+              <img src="<%= item.image_url %>" alt="<%= item.title %>" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
             <% else %>
-              <div style="width: 100%; height: 250px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border-radius: 4px;">
+              <div style="width: 100%; height: 250px; background: #1a001f; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
                 <span style="color: #999; font-size: 48px;">🎵</span>
               </div>
             <% end %>
-            
-            <h3 style="font-size: 18px; margin-bottom: 10px;"><%= item.title %></h3>
-            <p><strong>Artist:</strong> <%= item.artist || "Unknown Artist" %></p>
-            
+
+            <h3 style="font-size: 18px; margin-bottom: 8px; color: #e0c3ff;"><%= item.title %></h3>
+            <p style="color: #bbb; margin-bottom: 12px;"><strong>Artist:</strong> <%= item.artist || "Unknown Artist" %></p>
+
             <div style="margin-top: 15px;">
-              <%= button_to 'Remove from Wishlist', wishlist_item_path(item), method: :delete, class: "btn btn-outline-danger btn-sm", data: { confirm: "Remove #{item.title} from wishlist?" } %>
+              <%= button_to 'Remove from Wishlist', wishlist_item_path(item), 
+                  method: :delete, 
+                  class: 'btn btn-outline-danger btn-sm', 
+                  data: { confirm: "Remove #{item.title}?" } %>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
+      <!-- ✨ Empty Wishlist Display -->
       <div class="text-center">
         <p class="text-muted mb-4">Your wishlist is empty 💜</p>
-        <p><%= link_to "Search for albums to add", search_path, class: "btn btn-primary" %></p>
+        <p>Here are some albums you might love 🎶</p>
+
+       
+
+    <div class="recommendations">
+      <div class="album-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Adele_-_Live_2009_%284%29.jpg" alt="Adele - 21">
+        <p><strong>Adele</strong><br>21</p>
+      </div>
+
+          <div class="album-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/9/9c/Princepurplerain.jpg" alt="Prince - Purple Rain">
+            <p><strong>Prince</strong><br>Purple Rain</p>
+          </div>
+
+          <div class="album-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/b/b7/NirvanaNevermindalbumcover.jpg" alt="Nirvana - Nevermind">
+            <p><strong>Nirvana</strong><br>Nevermind</p>
+          </div>
+        </div>
+
+        <%= link_to "🔍 Search for albums to add", search_path, class: "search-btn" %>
       </div>
     <% end %>
   </div>
 </div>
+

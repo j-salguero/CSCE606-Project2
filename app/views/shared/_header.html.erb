@@ -1,13 +1,13 @@
 <header class="site-header">
-  <nav class="nav">
-    <div class="nav-left">
-      <%= link_to "Musiccollection", root_path, class: "brand" %>
-    </div>
-    <div class="nav-right">
-      <%= link_to "Search",        search_path,        class: "nav-link" %>
-      <%= link_to "My Collection", collection_items_path,    class: "nav-link" %>
-      <%= link_to "My Wishlist",   wishlist_items_path, class: "nav-link" %>
-      <%# <%= link_to "Artists", artists_path, class: "nav-link" %> %>
+  <nav class="nav-bar">
+    <h1 class="brand">🎶 VinylVerse</h1>
+    <div class="nav-links">
+      <%= link_to "Search", search_path, class: "nav-link" %>
+      <%= link_to "My Collection", collection_items_path, class: "nav-link" %>
+      <%= link_to "My Wishlist", wishlist_items_path, class: "nav-link" %>
+      <%# <%= link_to "Artists", artists_path, class: "nav-link" %>
+       
     </div>
   </nav>
 </header>
+
