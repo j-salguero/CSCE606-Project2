@@ -38,21 +38,23 @@
 }
 
 .input-label {
-  display: block;
-  color: #4a148c;
+   display: block;
+  color: #c8a9ff; /* soft lavender */
   font-weight: 600;
   text-align: left;
   margin-bottom: 0.4rem;
+  letter-spacing: 0.5px;
 }
 
 .input-field {
   width: 100%;
-  padding: 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #c2a7d0;
-  background-color: #ffffff;
-  color: #333;
-  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #5e3ca4; /* soft purple border */
+  background-color: #1a1a1a; /* dark field to match black background */
+  color: #f5f0ff; /* white/lavender text */
+  margin-bottom: 1.2rem;
+  transition: all 0.3s ease;
 }
 
 .input-field:focus {
@@ -360,4 +362,179 @@ body {
   margin-right: 40px;
 }
 
+/* 🎵 VinylVerse Login Page Theme */
+
+/* 🖤 Background Gradient */
+body.sessions-new {
+   background-color: #000; /* solid black */
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* 💜 Login Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(155, 0, 255, 0.4);
+  width: 380px;
+  margin: 100px auto;
+  padding: 35px 40px;
+  text-align: center;
+  color: #f1e6ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 60px rgba(190, 130, 255, 0.6);
+}
+
+/* 🎧 Header Text */
+.login-card h2 {
+  color: #d3a6ff;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+/* ✉️ Input Fields */
+.login-card input[type="email"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  color: #333;
+  transition: 0.3s ease;
+}
+
+.login-card input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #b366ff;
+}
+
+/* 🔘 Login Button */
+.login-card button,
+.login-card input[type="submit"] {
+  width: 100%;
+  background: linear-gradient(90deg, #8a2be2, #a855f7);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card button:hover,
+.login-card input[type="submit"]:hover {
+  background: linear-gradient(90deg, #b366ff, #dbaaff);
+  box-shadow: 0 0 20px rgba(190, 120, 255, 0.8);
+}
+
+/* 🔙 Back Link */
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #c599ff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: #e6ccff;
+}
   
+/* 🖤 VinylVerse Login Page — Centered with Black Background */
+
+
+
+/* 💜 Login Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(180, 100, 255, 0.5);
+  width: 380px;
+  padding: 40px 45px;
+  text-align: center;
+  color: #f1e6ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 60px rgba(200, 120, 255, 0.8);
+}
+
+/* 🎧 Header */
+.login-card h2 {
+  color: #d3a6ff;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+/* ✉️ Input Fields */
+.login-card input[type="email"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  color: #222;
+  transition: 0.3s ease;
+}
+
+.login-card input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #b366ff;
+}
+
+/* 🔘 Login Button */
+.login-card input[type="submit"] {
+  width: 100%;
+  background: linear-gradient(90deg, #8a2be2, #a855f7);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 0;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card input[type="submit"]:hover {
+  background: linear-gradient(90deg, #b366ff, #dbaaff);
+  box-shadow: 0 0 25px rgba(190, 120, 255, 0.8);
+}
+
+/* 🔙 Back Link */
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #c599ff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: #e6ccff;
+}
