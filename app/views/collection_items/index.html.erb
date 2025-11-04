@@ -3,12 +3,12 @@
   <h1 class="page-title mb-5">🎵 My Vinyl Space</h1>
 
   <!-- 🎧 Explore Albums Section -->
-  <section class="explore-section mb-5">
+   <section class="explore-section mb-5">
     <h2 class="section-title mb-4">Explore Albums</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+    <div class="album-grid">
       <% albums = [
         { title: "Thriller", artist: "Michael Jackson", image_url: "https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" },
-        { title: "Back to Black", artist: "Amy Winehouse", image_url: "https://upload.wikimedia.org/wikipedia/en/2/24/Amy_Winehouse_-_Back_to_Black_%28album_cover%29.png" },
+        { title: "Whitney", artist: "Whitney Houston", image_url: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Whitney_Houston_Welcome_Home_Heroes_1_cropped.jpg" },
         { title: "Rumours", artist: "Fleetwood Mac", image_url: "https://upload.wikimedia.org/wikipedia/en/f/fb/FMacRumours.PNG" },
         { title: "Purple Rain", artist: "Prince", image_url: "https://upload.wikimedia.org/wikipedia/en/9/9c/Princepurplerain.jpg" },
         { title: "Abbey Road", artist: "The Beatles", image_url: "https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" },
@@ -16,66 +16,83 @@
       ] %>
 
       <% albums.each do |album| %>
-        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white; text-align: center;">
-          <img src="<%= album[:image_url] %>" alt="<%= album[:title] %>" style="width: 100%; height: auto; margin-bottom: 10px;" />
-          <h5 style="margin: 10px 0; font-size: 16px;"><%= album[:title] %></h5>
-          <p style="color: #666; margin-bottom: 10px;"><%= album[:artist] %></p>
-          <p style="font-size: 12px; color: #999;">Search for this album on Discogs to add it!</p>
+        <div class="album-card">
+          <img src="<%= album[:image_url] %>" alt="<%= album[:title] %>">
+          <h5><%= album[:title] %></h5>
+          <p><strong>Artist:</strong> <%= album[:artist] %></p>
+          <p class="note">Search for this album on Discogs to add it!</p>
         </div>
       <% end %>
     </div>
   </section>
 
   <!-- 💿 My Collection Section -->
-  <section class="collection-section mb-5">
-    <h2 class="section-title mb-4">My Collection</h2>
-    <% if @collection_items.present? %>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
-        <% @collection_items.each do |item| %>
-          <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
-            <% if item.album.image_url.present? %>
-              <img src="<%= item.album.image_url %>" alt="<%= item.album.title %>" style="width: 100%; height: auto; margin-bottom: 10px; border-radius: 4px;">
-            <% else %>
-              <div style="width: 100%; height: 250px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; border-radius: 4px;">
-                <span style="color: #999;">🎵</span>
-              </div>
-            <% end %>
-            
-            <h5 class="album-title mb-3"><%= item.album.title %></h5>
-            <p class="album-artist text-muted mb-2">
-              <%= item.album.artist.name %>
-            </p>
-            
-            <% if item.album.year.present? %>
-              <p class="album-year"><small>Released: <%= item.album.year %></small></p>
-            <% end %>
-            
-            <%= button_to 'Remove', collection_item_path(item), method: :delete, class: "btn btn-outline-danger btn-sm mt-3", data: { confirm: "Remove #{item.album.title} from collection?" } %>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <p class="text-muted">You haven't added any albums yet 🎶</p>
-      <p><%= link_to "Search for albums", search_path, class: "btn btn-primary mt-3" %></p>
-    <% end %>
-  </section>
+<section class="collection-section mb-5">
+  <h2 class="section-title mb-4">My Collection</h2>
+
+  <% if @collection_items.present? %>
+    <div class="collection-grid">
+      <% @collection_items.each do |item| %>
+        <div class="collection-card">
+          <% if item.album.image_url.present? %>
+            <img src="<%= item.album.image_url %>" alt="<%= item.album.title %>">
+          <% else %>
+            <div class="placeholder">🎶</div>
+          <% end %>
+
+          <h5 class="album-title"><%= item.album.title %></h5>
+          <p class="album-artist"><strong>Artist:</strong> <%= item.album.artist.name rescue item.album.artist %></p>
+
+          <% if item.album.year.present? %>
+            <p class="album-year">Released: <%= item.album.year %></p>
+          <% end %>
+
+          <%= button_to 'Remove from Collection',
+              collection_item_path(item),
+              method: :delete,
+              class: 'remove-btn',
+              data: { confirm: "Remove #{item.album.title} from your collection?" } %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">You haven't added any albums yet 🎶</p>
+    <p><%= link_to "Search for albums", search_path, class: "btn btn-primary mt-3" %></p>
+  <% end %>
+</section>
+
 
   <!-- 💖 My Wishlist Section -->
-  <section class="wishlist-section">
+  <section class="wishlist-section mb-5">
     <h2 class="section-title mb-4">My Wishlist</h2>
     <% if @wishlist_items.present? %>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+      <div class="album-grid">
         <% @wishlist_items.each do |item| %>
-          <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
-            <h5 class="album-title mb-3"><%= item.title %></h5>
-            <p class="album-artist text-muted mb-3"><%= item.artist || "Unknown Artist" %></p>
-            <%= button_to 'Remove', wishlist_item_path(item), method: :delete, class: "btn btn-outline-danger btn-sm", data: { confirm: "Remove #{item.title} from wishlist?" } %>
+          <div class="album-card">
+            <% if item.image_url.present? %>
+              <img src="<%= item.image_url %>" alt="<%= item.title %>">
+            <% else %>
+              <div class="placeholder">💿</div>
+            <% end %>
+            <h5><%= item.title %></h5>
+            <p><strong>Artist:</strong> <%= item.artist || "Unknown Artist" %></p>
+            <%= button_to 'Remove from Wishlist',
+                wishlist_item_path(item),
+                method: :delete,
+                class: 'remove-btn',
+                data: { confirm: "Remove #{item.title}?" } %>
           </div>
         <% end %>
       </div>
     <% else %>
       <p class="text-muted">No albums in your wishlist yet 💜</p>
-      <p><%= link_to "Search for albums", search_path, class: "btn btn-primary mt-3" %></p>
+      <%= link_to "Search for albums", search_path, class: "btn btn-primary mt-3" %>
     <% end %>
   </section>
+
+<!-- 🎵 Add More Buttons -->
+<div class="add-more-container">
+  <%= link_to "➕ Add More to Collection", search_path, class: "add-btn left-btn" %>
+  <%= link_to "🎧 Add More to Wishlist", search_path, class: "add-btn right-btn" %>
 </div>
+
