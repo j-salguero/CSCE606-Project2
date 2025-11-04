@@ -1,114 +1,153 @@
-<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
-  <h1>VinylVerse</h1>
+<div class="search-page py-5">
+  <h1 class="text-center mb-4">🔍 Search VinylVerse</h1>
+  <p class="text-center text-muted mb-5">Find your favorite albums and artists</p>
 
-  <!-- Artist Search Form -->
-  <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-    <h2>Search by Artist</h2>
-    <%= form_with url: search_path, method: :get, local: true do %>
-      <%= label_tag :artist_name, "Artist Name" %>
-      <%= text_field_tag :artist_name, params[:artist_name], placeholder: "e.g., The Beatles", style: "width: 300px; padding: 8px; margin: 0 10px;" %>
-      <%= submit_tag "Search Artist", style: "padding: 8px 16px;" %>
+  <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    
+    <!-- Artist Search Form -->
+    <div style="background: #140020; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(155, 0, 255, 0.4); border: 1px solid #9b00ff;">
+      <h2 style="color: #e0c3ff; margin-bottom: 15px;">🎤 Search by Artist</h2>
+      <%= form_with url: search_path, method: :get, local: true do %>
+        <%= label_tag :artist_name, "Artist Name", style: "color: #bbb; display: block; margin-bottom: 8px;" %>
+        <%= text_field_tag :artist_name, params[:artist_name], 
+            placeholder: "e.g., The Beatles", 
+            style: "width: 100%; max-width: 400px; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #9b00ff; background: #1a001f; color: #e0c3ff;" %>
+        <%= submit_tag "Search Artist", 
+            class: "btn btn-primary",
+            style: "padding: 10px 20px; background: #9b00ff; border: none; border-radius: 4px; cursor: pointer;" %>
+      <% end %>
+    </div>
+
+    <!-- Album Search Form -->
+    <div style="background: #140020; padding: 25px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 0 15px rgba(155, 0, 255, 0.4); border: 1px solid #9b00ff;">
+      <h2 style="color: #e0c3ff; margin-bottom: 15px;">💿 Search by Album</h2>
+      <%= form_with url: search_path, method: :get, local: true do %>
+        <%= label_tag :album_name, "Album Name", style: "color: #bbb; display: block; margin-bottom: 8px;" %>
+        <%= text_field_tag :album_name, params[:album_name], 
+            placeholder: "e.g., Abbey Road", 
+            style: "width: 100%; max-width: 400px; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #9b00ff; background: #1a001f; color: #e0c3ff;" %>
+        <%= submit_tag "Search Album", 
+            class: "btn btn-primary",
+            style: "padding: 10px 20px; background: #9b00ff; border: none; border-radius: 4px; cursor: pointer;" %>
+      <% end %>
+    </div>
+
+    <!-- Artist Search Results -->
+    <% if @search_type == 'artist' %>
+      <% if @search_data && @search_data.artist %>
+        <h2 style="color: #e0c3ff; margin-bottom: 20px;">🎵 <%= @search_data.artist.title %>'s Releases</h2>
+        
+        <% if @search_data.releases.any? %>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+            <% @search_data.releases.each do |release| %>
+              <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #140020; box-shadow: 0 0 15px rgba(155, 0, 255, 0.4);">
+                <% if release.thumb.present? %>
+                  <img src="<%= release.thumb %>" alt="<%= release.title %>" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+                <% else %>
+                  <div style="width: 100%; height: 250px; background: #1a001f; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 10px;">
+                    <span style="color: #999; font-size: 48px;">🎵</span>
+                  </div>
+                <% end %>
+                
+                <h3 style="font-size: 18px; margin: 10px 0; color: #e0c3ff;"><%= release.title %></h3>
+                <p style="color: #bbb;"><strong>Year:</strong> <%= release.year || 'N/A' %></p>
+                <p style="color: #bbb;"><strong>Format:</strong> <%= release.format || 'N/A' %></p>
+                <p style="color: #bbb;"><strong>Label:</strong> <%= release.label || 'N/A' %></p>
+                
+                <% if release.resource_url.present? %>
+                  <a href="<%= release.resource_url %>" target="_blank" style="color: #9b00ff; display: block; margin-top: 10px;">View on Discogs</a>
+                <% end %>
+                
+                <div style="margin-top: 15px; display: flex; gap: 8px;">
+                  <%= button_to "Add to Collection", collection_items_path, 
+                      params: { release: release.to_h }, 
+                      method: :post, 
+                      class: "btn btn-sm",
+                      style: "background: #9b00ff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;" %>
+                  <%= button_to "Add to Wishlist", wishlist_items_path, 
+                      params: { release: release.to_h }, 
+                      method: :post,
+                      class: "btn btn-sm",
+                      style: "background: transparent; color: #9b00ff; border: 1px solid #9b00ff; padding: 8px 12px; border-radius: 4px; cursor: pointer;" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center" style="padding: 40px;">
+            <p style="color: #bbb;">No releases found for this artist 💜</p>
+          </div>
+        <% end %>
+        
+      <% elsif params[:artist_name].present? %>
+        <div class="text-center" style="padding: 40px;">
+          <h2 style="color: #e0c3ff;">No Results</h2>
+          <p style="color: #bbb;">No artist found for "<%= params[:artist_name] %>". Please try again with a different search term.</p>
+        </div>
+      <% end %>
     <% end %>
-  </div>
 
-  <!-- Album Search Form -->
-  <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-    <h2>Search by Album</h2>
-    <%= form_with url: search_path, method: :get, local: true do %>
-      <%= label_tag :album_name, "Album Name" %>
-      <%= text_field_tag :album_name, params[:album_name], placeholder: "e.g., Abbey Road", style: "width: 300px; padding: 8px; margin: 0 10px;" %>
-      <%= submit_tag "Search Album", style: "padding: 8px 16px;" %>
-    <% end %>
-  </div>
-
-  <!-- Artist Search Results -->
-  <% if @search_type == 'artist' %>
-    <% if @search_data && @search_data.artist %>
-      <h2><%= @search_data.artist.title %>'s Releases</h2>
-      
-      <% if @search_data.releases.any? %>
+    <!-- Album Search Results -->
+    <% if @search_type == 'album' %>
+      <% if @album_results && @album_results.results.any? %>
+        <h2 style="color: #e0c3ff; margin-bottom: 20px;">💿 Album Search Results for "<%= params[:album_name] %>"</h2>
+        
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-          <% @search_data.releases.each do |release| %>
-            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
+          <% @album_results.results.each do |release| %>
+            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #140020; box-shadow: 0 0 15px rgba(155, 0, 255, 0.4);">
               <% if release.thumb.present? %>
-                <img src="<%= release.thumb %>" alt="<%= release.title %>" style="width: 100%; height: auto; margin-bottom: 10px;">
+                <img src="<%= release.thumb %>" alt="<%= release.title %>" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+              <% else %>
+                <div style="width: 100%; height: 250px; background: #1a001f; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 10px;">
+                  <span style="color: #999; font-size: 48px;">🎵</span>
+                </div>
               <% end %>
               
-              <h3 style="margin: 10px 0; font-size: 16px;"><%= release.title %></h3>
-              <p><strong>Year:</strong> <%= release.year || 'N/A' %></p>
-              <p><strong>Format:</strong> <%= release.format || 'N/A' %></p>
-              <p><strong>Label:</strong> <%= release.label || 'N/A' %></p>
+              <h3 style="font-size: 18px; margin: 10px 0; color: #e0c3ff;"><%= release.title %></h3>
+              
+              <% if release.respond_to?(:year) && release.year.present? %>
+                <p style="color: #bbb;"><strong>Year:</strong> <%= release.year %></p>
+              <% end %>
+              
+              <% if release.respond_to?(:format) && release.format.present? %>
+                <p style="color: #bbb;"><strong>Format:</strong> <%= release.format.is_a?(Array) ? release.format.join(', ') : release.format %></p>
+              <% end %>
+              
+              <% if release.respond_to?(:label) && release.label.present? %>
+                <p style="color: #bbb;"><strong>Label:</strong> <%= release.label.is_a?(Array) ? release.label.join(', ') : release.label %></p>
+              <% end %>
+              
+              <% if release.respond_to?(:country) && release.country.present? %>
+                <p style="color: #bbb;"><strong>Country:</strong> <%= release.country %></p>
+              <% end %>
               
               <% if release.resource_url.present? %>
-                <a href="<%= release.resource_url %>" target="_blank" style="color: #007bff;">View on Discogs</a>
+                <a href="<%= release.resource_url %>" target="_blank" style="color: #9b00ff; display: block; margin-top: 10px;">View on Discogs</a>
               <% end %>
               
-              <div style="margin-top: 10px;">
-                <%= button_to "Add to Collection", collection_items_path, params: { release: release.to_h }, method: :post, style: "margin-right: 5px;" %>
-                <%= button_to "Add to Wishlist", wishlist_items_path, params: { release: release.to_h }, method: :post %>
+              <div style="margin-top: 15px; display: flex; gap: 8px;">
+                <%= button_to "Add to Collection", collection_items_path, 
+                    params: { release: release.to_h }, 
+                    method: :post,
+                    class: "btn btn-sm",
+                    style: "background: #9b00ff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;" %>
+                <%= button_to "Add to Wishlist", wishlist_items_path, 
+                    params: { release: release.to_h }, 
+                    method: :post,
+                    class: "btn btn-sm",
+                    style: "background: transparent; color: #9b00ff; border: 1px solid #9b00ff; padding: 8px 12px; border-radius: 4px; cursor: pointer;" %>
               </div>
             </div>
           <% end %>
         </div>
-      <% else %>
-        <p>No releases found for this artist.</p>
+        
+      <% elsif params[:album_name].present? %>
+        <div class="text-center" style="padding: 40px;">
+          <h2 style="color: #e0c3ff;">No Results</h2>
+          <p style="color: #bbb;">No albums found for "<%= params[:album_name] %>". Try a different search term 💜</p>
+        </div>
       <% end %>
-      
-    <% elsif params[:artist_name].present? %>
-      <h2>No Results</h2>
-      <p>No artist found for "<%= params[:artist_name] %>". Please try again with a different search term.</p>
     <% end %>
-  <% end %>
-
-  <!-- Album Search Results -->
-  <% if @search_type == 'album' %>
-    <% if @album_results && @album_results.results.any? %>
-      <h2>Album Search Results for "<%= params[:album_name] %>"</h2>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-        <% @album_results.results.each do |release| %>
-          <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
-            <% if release.thumb.present? %>
-              <img src="<%= release.thumb %>" alt="<%= release.title %>" style="width: 100%; height: auto; margin-bottom: 10px;">
-            <% else %>
-              <div style="width: 100%; height: 200px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                <span style="color: #999;">No Image</span>
-              </div>
-            <% end %>
-            
-            <h3 style="margin: 10px 0; font-size: 16px;"><%= release.title %></h3>
-            
-            <% if release.respond_to?(:year) && release.year.present? %>
-              <p><strong>Year:</strong> <%= release.year %></p>
-            <% end %>
-            
-            <% if release.respond_to?(:format) && release.format.present? %>
-              <p><strong>Format:</strong> <%= release.format.is_a?(Array) ? release.format.join(', ') : release.format %></p>
-            <% end %>
-            
-            <% if release.respond_to?(:label) && release.label.present? %>
-              <p><strong>Label:</strong> <%= release.label.is_a?(Array) ? release.label.join(', ') : release.label %></p>
-            <% end %>
-            
-            <% if release.respond_to?(:country) && release.country.present? %>
-              <p><strong>Country:</strong> <%= release.country %></p>
-            <% end %>
-            
-            <% if release.resource_url.present? %>
-              <a href="<%= release.resource_url %>" target="_blank" style="color: #007bff; display: block; margin-top: 10px;">View on Discogs</a>
-            <% end %>
-            
-            <div style="margin-top: 10px;">
-              <%= button_to "Add to Collection", collection_items_path, params: { release: release.to_h }, method: :post, style: "margin-right: 5px;" %>
-              <%= button_to "Add to Wishlist", wishlist_items_path, params: { release: release.to_h }, method: :post %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      
-    <% elsif params[:album_name].present? %>
-      <h2>No Results</h2>
-      <p>No albums found for "<%= params[:album_name] %>". Try a different search term.</p>
-    <% end %>
-  <% end %>
+    
+  </div>
 </div>
