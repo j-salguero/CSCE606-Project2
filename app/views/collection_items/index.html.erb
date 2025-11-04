@@ -20,7 +20,8 @@
         <div class="album-card text-center p-3">
           <img src="<%= album[:image_url] %>" alt="<%= album[:title] %>" class="vinyl-img mb-3" />
           <h5 class="album-title mb-1"><%= album[:title] %></h5>
-          <p class="album-artist text-muted mb-3"><%= album[:artist] %></p>
+          <p class="album-artist text-muted mb-3">
+            <%= link_to album[:artist], artist_lookup_path(name: album[:artist]), class: "artist-link" %>
           <div class="d-flex justify-content-center gap-2">
             <%= button_to 'Add to Collection', collection_items_path(album_id: album[:id]), method: :post, class: "btn btn-info btn-sm" %>
             <%= button_to 'Add to Wishlist', wishlist_items_path(album_id: album[:id]), method: :post, class: "btn btn-outline-light btn-sm" %>
@@ -72,7 +73,18 @@
         <% @collection_items.each do |item| %>
           <div class="album-card text-center p-3">
             <h5 class="album-title mb-1"><%= item.title %></h5>
-            <p class="album-artist text-muted mb-3"><%= item.artist || "Unknown Artist" %></p>
+            <p class="album-artist text-muted mb-3">
+              <% album = item.respond_to?(:album) ? item.album : nil %>
+              <% artist_obj  = album&.respond_to?(:artist) ? album.artist : nil %>
+              <% artist_name = artist_obj&.name || (album&.respond_to?(:artist_name) && album.artist_name) || item.try(:artist) || "-" %>
+              <% if artist_obj.present? %>
+                <%= link_to artist_name, artist_path(artist_obj), class: "artist-link" %>
+              <% elsif artist_name.present? && artist_name != "-" %>
+                <%= link_to artist_name, artist_lookup_path(name: artist_name), class: "artist-link" %>
+              <% else %>
+                -
+              <% end %>
+            </p>
             <%= button_to 'Remove', collection_item_path(item), method: :delete, class: "btn btn-outline-danger btn-sm" %>
           </div>
         <% end %>
@@ -90,7 +102,18 @@
         <% @wishlist_items.each do |item| %>
           <div class="album-card text-center p-3">
             <h5 class="album-title mb-1"><%= item.title %></h5>
-            <p class="album-artist text-muted mb-3"><%= item.artist || "Unknown Artist" %></p>
+            <p class="album-artist text-muted mb-3">
+              <% album = item.respond_to?(:album) ? item.album : nil %>
+              <% artist_obj  = album&.respond_to?(:artist) ? album.artist : nil %>
+              <% artist_name = artist_obj&.name || (album&.respond_to?(:artist_name) && album.artist_name) || item.try(:artist) || "-" %>
+              <% if artist_obj.present? %>
+                <%= link_to artist_name, artist_path(artist_obj), class: "artist-link" %>
+              <% elsif artist_name.present? && artist_name != "-" %>
+                <%= link_to artist_name, artist_lookup_path(name: artist_name), class: "artist-link" %>
+              <% else %>
+                -
+              <% end %>
+            </p>
             <%= button_to 'Remove', wishlist_item_path(item), method: :delete, class: "btn btn-outline-danger btn-sm" %>
           </div>
         <% end %>

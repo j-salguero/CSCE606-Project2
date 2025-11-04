@@ -184,6 +184,14 @@ body {
   border-top: 1px solid #2a2a2a;
   color: #ddd;
   padding: 14px 12px;
-  font-size: 0.95rem;
-  white-space: pre-line;
+  margin: 4px 0;
+}
+
+.album-artist a.artist-link,
+.album-card .album-artist a.artist-link,
+.collection-section .album-artist a.artist-link,
+.wishlist-section .album-artist a.artist-link {
+  color: #fff !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

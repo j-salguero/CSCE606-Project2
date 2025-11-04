@@ -2,8 +2,8 @@
 
 <h2><%= @artist.name %></h2>
 
-<p><strong>Genre:</strong> <%= @artist.genre.presence || "-" %></p>
-<p><strong>Country:</strong> <%= @artist.country.presence || "-" %></p>
+<p><strong>Genre:</strong> <%= @discogs_genre || "-" %></p>
+<p><strong>Country:</strong> <%= @discogs_country || "-" %></p>
 <p><strong>Releases on Discogs:</strong> <%= (@discogs_releases_count || 0) %></p>
 
 <hr>
