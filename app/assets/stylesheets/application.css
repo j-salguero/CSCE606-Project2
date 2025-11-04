@@ -161,9 +161,29 @@ body {
 
 .site-header {
   text-align: center;
+  background: #121212;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 10px 12px;
+}
+
+.site-header .nav-links a {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 6px 12px;
+  background: #7b1fa2;       
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid #9c27b0; 
+  border-radius: 8px;         
+  font-weight: 600;
 }
 
 .site-footer {
   text-align: center;
-
+  background: #0f0f10;
+  border-top: 1px solid #2a2a2a;
+  color: #ddd;
+  padding: 14px 12px;
+  font-size: 0.95rem;
+  white-space: pre-line;
 }
