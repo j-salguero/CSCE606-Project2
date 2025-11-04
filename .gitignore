@@ -35,3 +35,5 @@
 # Ignore Discogs API Key and Secret
 /config/environment_variables.yml
 .envconfig/environments/environment_variables.yml
+
+/config/credentials/development.key
