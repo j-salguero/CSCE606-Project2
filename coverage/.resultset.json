@@ -319,20 +319,20 @@
           null,
           null,
           1,
-          0,
+          2,
           null,
-          0,
-          0,
-          0,
+          2,
+          1,
+          1,
           null,
-          0,
-          0,
+          1,
+          1,
           null,
           null,
           null,
           1,
-          0,
-          0,
+          1,
+          1,
           null
         ]
       },
@@ -650,6 +650,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1762311029
+    "timestamp": 1762311990
   }
 }
