@@ -11,7 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
     <!-- Only show header if user is logged in and not on login/signup pages -->
     <% unless controller_name == 'sessions' && action_name == 'new' || controller_name == 'users' && action_name == 'new' %>
       <% if logged_in? %>
@@ -32,6 +32,12 @@
       </div>
     <% end %>
 
-    <%= yield %>
+    <!-- Main content -->
+    <main style="flex: 1;">
+      <%= yield %>
+    </main>
+
+    <!-- Footer -->
+    <%= render 'shared/footer' %>
   </body>
 </html>
