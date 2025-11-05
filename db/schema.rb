@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_03_221736) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_05_003559) do
   create_table "albums", force: :cascade do |t|
     t.string "title"
     t.integer "year"
@@ -27,8 +27,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_221736) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "api_provider"
-    t.string "api_artist_id"
     t.string "discogs_id"
     t.string "discogs_uri"
   end
@@ -39,9 +37,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_221736) do
     t.datetime "added_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "album_id", null: false
     t.string "title"
     t.string "artist"
+    t.integer "album_id", null: false
     t.index ["album_id"], name: "index_collection_items_on_album_id"
   end
 
@@ -50,6 +48,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_221736) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
   end
 
   create_table "wishlist_items", force: :cascade do |t|

@@ -1,15 +1,18 @@
+# app/controllers/sessions_controller.rb
 class SessionsController < ApplicationController
   def new
+    # Login page
   end
 
   def create
     user = User.find_by(email: params[:email])
+    
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to collection_items_path, notice: "Welcome back to VinylVerse!"
+      redirect_to collection_items_path, notice: "Welcome back to VinylVerse, #{user.name}!"
     else
-      flash[:alert] = "Invalid email or password"
-      render :new
+      flash.now[:alert] = "Invalid email or password"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -18,4 +21,3 @@ class SessionsController < ApplicationController
     redirect_to login_path, notice: "You have been logged out."
   end
 end
-
