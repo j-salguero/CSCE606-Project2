@@ -5,7 +5,9 @@ class DiscogsService
   def initialize
     # Use personal access token for authentication
     if ENV['DISCOGS_TOKEN'].present?
-      @client = Discogs::Wrapper.new("VinylTracker", user_token: ENV['DISCOGS_TOKEN'])
+      @client = Discogs::Wrapper.new("VinylTracker") do |c|
+        c.user_token = ENV['DISCOGS_TOKEN']
+      end
     else
       # Fallback to app key/secret (may have limited access)
       @client = Discogs::Wrapper.new("VinylTracker") do |c|
