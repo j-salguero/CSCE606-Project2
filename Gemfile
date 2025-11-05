@@ -64,7 +64,7 @@ group :test do
   gem "webdrivers"
   gem "database_cleaner-active_record", require: false
   gem "webmock"
-  gem "simplecov", require: false
+  gem "simplecov", require: true
 end
 
 group :production do
