@@ -52,8 +52,6 @@ class CollectionItemsController < ApplicationController
     redirect_to collection_items_path, notice: "#{album_title} removed from your collection."
   end
 
-  private
-
   def extract_artist_name(release_data)
     # Discogs sometimes returns artist as a string or within the title
     if release_data[:artist].present?
