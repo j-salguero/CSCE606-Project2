@@ -7,7 +7,7 @@ class ArtistsController < ApplicationController
     @q = params[:q].to_s.strip
     @artists = 
       if @q.present?
-        Artist.where("LOWER(name) LIKE ?", "%#{@q.downcase}%").order(:name)
+        Artist.where("name ILIKE ?", "%#{@q}%").order(:name)
       else
         Artist.order(:name)
       end
