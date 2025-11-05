@@ -35,8 +35,6 @@ class WishlistItemsController < ApplicationController
     redirect_to wishlist_items_path, notice: "#{title} removed from your wishlist."
   end
 
-  private
-
   def extract_artist_name(release_data)
     if release_data[:artist].present?
       release_data[:artist]

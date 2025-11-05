@@ -27,6 +27,24 @@ class ArtistsController < ApplicationController
       else
         0 #artist not in discogs
       end
+
+      @discogs_genre = 
+        if discogs_id.present?
+          Rails.cache.fetch(["discogs_genre", discogs_id], expires_in: 30.minutes) do
+            discogs.genre_for_artist(discogs_id)
+        end
+        else
+          nil
+        end
+
+      @discogs_country = 
+        if discogs_id.present?
+          Rails.cache.fetch(["discogs_country", discogs_id], expires_in: 30.minutes) do
+            discogs.country_for_artist(discogs_id)
+        end
+        else
+          nil
+        end
   end
 
   # GET /artists/new
@@ -103,9 +121,6 @@ class ArtistsController < ApplicationController
   end
 end
 
-
-  
-  private
     # Use callbacks to share common setup or constraints between actions.
     def set_artist
       @artist = Artist.find(params[:id])
