@@ -1,13 +1,9 @@
-# frozen_string_literal: true
-
-# Helper: safely call a block and ignore any errors (so we don't make tests brittle)
 def swallow
   yield
 rescue StandardError
   # noop
 end
 
-# A tiny fake Discogs namespace we can swap in/out
 module CukesFakeDiscogs
   class Wrapper
     def initialize(*); end
@@ -21,7 +17,6 @@ module CukesFakeDiscogs
       )
     end
 
-    # Optional helper methods some services call internally
     def get_release(id)
       case id.to_i
       when 1, 101
@@ -29,7 +24,7 @@ module CukesFakeDiscogs
       when 2, 102
         { 'genres' => ['Pop'],  'country' => 'US' }
       else
-        {} # exercises "no data" branch
+        {} 
       end
     end
 
@@ -45,7 +40,6 @@ module CukesFakeDiscogs
 end
 
 Given('I exercise backend code paths for coverage') do
-  # --- Touch URL helpers; ensures routes load (safe if some routes don’t exist) ---
   rh = Rails.application.routes.url_helpers
   swallow { rh.root_path }
   swallow { rh.artists_path }
@@ -65,7 +59,6 @@ Given('I exercise backend code paths for coverage') do
   a.errors.full_messages.join(', ')
   a.update(name: 'Final Artist Name')
 
-  # Album present? If so touch validations
   if defined?(Album)
     alb = (Album.where(title: 'Cuke Album').first ||
            swallow { Album.create!(title: 'Cuke Album') } ||
@@ -77,7 +70,6 @@ Given('I exercise backend code paths for coverage') do
     end
   end
 
-  # CollectionItem/WishlistItem validations (don’t assume associations exist)
   if defined?(CollectionItem)
     ci = CollectionItem.new
     ci.valid?
@@ -90,7 +82,6 @@ Given('I exercise backend code paths for coverage') do
     wi.errors.full_messages.join(', ')
   end
 
-  # If your items require album, create a minimal album/artist pair defensively
   album = nil
   swallow do
     base_artist = Artist.where(name: 'Items Artist').first || Artist.create!(name: 'Items Artist')
@@ -104,10 +95,8 @@ Given('I exercise backend code paths for coverage') do
     WishlistItem.create!(album: album)   if defined?(WishlistItem)   && album
   end
 
-  # --- Helpers: ensure helper modules are loaded (avoid to_json recursion) ---
   swallow { ApplicationController.helpers.inspect }
 
-  # --- DiscogsService: exercise multiple branches with a safe fake wrapper ---
   original_discogs = Object.const_get(:Discogs) if Object.const_defined?(:Discogs)
   begin
     Object.send(:remove_const, :Discogs) if Object.const_defined?(:Discogs)
@@ -120,47 +109,37 @@ Given('I exercise backend code paths for coverage') do
     if defined?(DiscogsService)
       svc = DiscogsService.new
 
-      # Branch 1: standard search
       swallow { svc.search_artist('The Beatles') }
 
-      # Branch 2: count releases if implemented
       swallow do
         if svc.respond_to?(:count_releases_for_artist_id)
           svc.count_releases_for_artist_id(82730)
         end
       end
 
-      # Branch 3: genre discovery path (uses get_release internally)
       swallow do
         if svc.respond_to?(:genre_for_artist)
           svc.genre_for_artist(82730)
         end
       end
 
-      # Branch 4: country discovery path
       swallow do
         if svc.respond_to?(:country_for_artist)
           svc.country_for_artist(82730)
         end
       end
 
-      # Branch 5: unknown ids -> empty response branch
       swallow { svc.send(:get_release, 999_999) if svc.respond_to?(:get_release, true) }
     end
   ensure
-    # restore Discogs constant
     Object.send(:remove_const, :Discogs) if Object.const_defined?(:Discogs)
     Object.const_set(:Discogs, original_discogs) if defined?(original_discogs) && original_discogs
   end
 
-  # --- Light controller hits via RackTest (no UI) where safe ---
-  # Create & destroy an Artist with no associations to avoid FK failures
   rh = Rails.application.routes.url_helpers
   if Capybara.current_session.driver.respond_to?(:submit)
-    # POST /artists with invalid params (exercises failure branch)
     swallow { page.driver.submit :post, rh.artists_path, { artist: { name: '' } } }
 
-    # POST /artists valid, then DELETE it
     swallow do
       page.driver.submit :post, rh.artists_path, { artist: { name: 'Temp Cuke Artist' } }
       created = Artist.where(name: 'Temp Cuke Artist').order('id DESC').first
@@ -170,6 +149,5 @@ Given('I exercise backend code paths for coverage') do
     end
   end
 
-  # If we got here the coverage exercise succeeded
   expect(true).to be true
 end

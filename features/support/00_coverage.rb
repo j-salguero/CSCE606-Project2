@@ -1,4 +1,3 @@
-# Cucumber coverage focused on controllers/models only
 if ENV['COVERAGE'] != 'false'
   require 'simplecov'
   SimpleCov.start do

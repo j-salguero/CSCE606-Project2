@@ -7,8 +7,6 @@ Feature: Artists CRUD and views
     When I go to the artists page
     Then I should see "Artists"
 
-  # Seed one artist so the table headers actually render even if the
-  # empty state normally hides them.
   Scenario: Artists index shows table headers
     Given an artist named "Table Probe" exists
     When I go to the artists page

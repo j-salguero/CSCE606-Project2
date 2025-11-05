@@ -1,11 +1,6 @@
 Feature: Header and footer basics
-  # These scenarios are intentionally short, clear, and independent.
-  # They verify the site header shows the brand and (if present) nav links,
-  # and that the footer renders with a sensible copyright line.
-
+  
   Background:
-    # No DB state required for pure layout checks.
-    # Home works unauthenticated in this app.
     When I visit the home page
 
   Scenario: Header shows site brand
@@ -26,5 +21,5 @@ Feature: Header and footer basics
   Scenario: Footer shows current year or a copyright line
     Then I should see the current year in the footer or a copyright line
 
-  Scenario: Footer has optional policy links (Privacy/Terms/About)
-    Then the footer should optionally show any of "Privacy,Terms,About"
+  Scenario: Footer exposes contact links (phone and email)
+    Then the footer should have a phone and email link

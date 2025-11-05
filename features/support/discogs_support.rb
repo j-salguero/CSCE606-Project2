@@ -1,8 +1,6 @@
-# Global Discogs API stubs – deterministic results for scenarios
 require "addressable/uri"
 
 Before do
-  # database/search?q=...&type=artist
   stub_request(:get, %r{\Ahttps://api\.discogs\.com/database/search})
     .to_return do |req|
       q = Addressable::URI.parse(req.uri.to_s).query_values || {}
@@ -30,7 +28,6 @@ Before do
       end
     end
 
-  # artists/:id/releases for Beatles
   stub_request(:get, %r{\Ahttps://api\.discogs\.com/artists/82730/releases})
     .to_return(
       status: 200, headers: { "Content-Type" => "application/json" },
@@ -40,7 +37,6 @@ Before do
       }.to_json
     )
 
-  # releases/:id (some paths fetch details for genres/styles)
   stub_request(:get, %r{\Ahttps://api\.discogs\.com/releases/\d+})
     .to_return(
       status: 200, headers: { "Content-Type" => "application/json" },

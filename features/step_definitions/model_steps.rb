@@ -1,12 +1,9 @@
-# Database seeding + lookup helpers for independent scenarios
-
 Given("the database is clean") do
   tables = %w[wishlist_items collection_items albums artists]
   tables.each do |tbl|
     begin
       ActiveRecord::Base.connection.execute("DELETE FROM #{tbl}")
     rescue
-      # ignore if table missing in test env
     end
   end
 end
@@ -20,7 +17,6 @@ When('I view the artist {string}') do |name|
   visit artist_path(artist)
 end
 
-# Handy direct navigation for edit page to avoid missing 'Edit …' link issues
 When('I go to the edit page for artist {string}') do |name|
   artist = Artist.find_by!(name: name)
   visit edit_artist_path(artist)

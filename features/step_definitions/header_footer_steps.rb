@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# Helper to find a header-ish container in a tolerant way.
 def find_header_node
   candidates = [
     'header',
@@ -17,10 +14,11 @@ def find_header_node
   nil
 end
 
-# Helper to find a footer-ish container in a tolerant way.
 def find_footer_node
   candidates = [
     'footer',
+    '[class*="footer"]',
+    '[id*="footer"]',
     '.site-footer',
     'div.footer',
     'div#footer',
@@ -32,12 +30,10 @@ def find_footer_node
   nil
 end
 
-# Click a header link if it exists; otherwise note that it was absent.
 def click_header_link_if_exists(label)
   header = find_header_node
   if header
     within(header) do
-      # Accept both <a> and <button> with that label
       if has_link?(label, wait: 0)
         click_link(label)
         return :clicked
@@ -50,9 +46,9 @@ def click_header_link_if_exists(label)
   :absent
 end
 
+# -------- Steps --------
 Then('I should see the site brand in the header') do
   header = find_header_node
-  # Brand text we’ve seen around the app
   possible_brands = [/VinylVerse/i, /Vinyl\s*Verse/i, /🎧/]
 
   if header
@@ -60,7 +56,6 @@ Then('I should see the site brand in the header') do
     expect(possible_brands.any? { |rx| header_text =~ rx }).to be(true),
       "Expected one of #{possible_brands} in header, got: #{header_text.inspect}"
   else
-    # Fall back to page-level check so this doesn’t fail if layout omits <header>.
     expect(page).to have_text(/VinylVerse/i)
   end
 end
@@ -71,10 +66,8 @@ end
 
 Then('I should land on the artists page if the link existed') do
   if @header_click_result == :clicked
-    # URL helper may not be available in the test context; assert by content
     expect(page).to have_text(/Artists/i)
   else
-    # Link wasn’t present; pass without asserting navigation.
     expect(true).to be(true)
   end
 end
@@ -100,28 +93,33 @@ Then('I should see the current year in the footer or a copyright line') do
   footer = find_footer_node
 
   if footer
-    # Accept either the year or a classic copyright symbol line
     expect(
       footer.text.include?(year) ||
       footer.text.match?(/©|\(c\)|copyright/i)
     ).to be(true), "Expected footer to include #{year} or a copyright mark, got: #{footer.text.inspect}"
   else
-    # Fallback: some pages don’t render a footer; allow a global check so the test stays acceptance-level.
     expect(page).to have_text(/©|\(c\)|copyright/i).or have_text(year)
   end
 end
 
-Then('the footer should optionally show any of {string}') do |csv|
+Then('the footer should have a phone and email link') do
   footer = find_footer_node
-  labels = csv.split(',').map(&:strip)
-  if footer
-    text = footer.text
-    # This is optional: the scenario passes if at least one is present OR none exist.
-    # The assertion ensures we ran the check; but it’s not strict about presence.
-    _present = labels.any? { |lbl| text.match?(/#{Regexp.escape(lbl)}/i) }
-    expect(_present || !footer).to be(true)
-  else
-    # No footer present; optional link test passes.
-    expect(true).to be(true)
-  end
+  scope = footer || page
+
+  tel_links    = scope.all(:css, 'a[href^="tel:"]', minimum: 0, wait: 0)
+  mailto_links = scope.all(:css, 'a[href^="mailto:"]', minimum: 0, wait: 0)
+
+  tel_links    = page.all(:css, 'a[href^="tel:"]',     minimum: 0, wait: 0) if tel_links.empty?
+  mailto_links = page.all(:css, 'a[href^="mailto:"]',  minimum: 0, wait: 0) if mailto_links.empty?
+
+  expect(tel_links.any?).to be(true),    "Expected a phone link (tel:...) in footer/page"
+  expect(mailto_links.any?).to be(true), "Expected an email link (mailto:...) in footer/page"
+
+  phone_visible = page.has_text?(/\(\d{3}\)\s*\d{3}\s*[-\.]?\s*\d{4}/, wait: 0) ||
+                  page.has_text?(/\b\d{3}[-\.]\d{3}[-\.]\d{4}\b/, wait: 0)
+  email_visible = page.has_text?(/@/, wait: 0)
+
+  expect(phone_visible).to be(true), "Expected a phone-like number visible somewhere in the footer/page"
+  expect(email_visible).to be(true), "Expected an email-like text visible somewhere in the footer/page"
 end
+

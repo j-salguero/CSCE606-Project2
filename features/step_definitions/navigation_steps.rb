@@ -1,5 +1,3 @@
-# Navigation + simple assertions
-
 When("I visit the home page")        { visit root_path }
 When("I go to the artists page")     { visit artists_path }
 When("I go to the new artist page")  { visit new_artist_path }
