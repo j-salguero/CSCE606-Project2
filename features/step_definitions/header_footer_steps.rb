@@ -46,7 +46,6 @@ def click_header_link_if_exists(label)
   :absent
 end
 
-# -------- Steps --------
 Then('I should see the site brand in the header') do
   header = find_header_node
   possible_brands = [/VinylVerse/i, /Vinyl\s*Verse/i, /🎧/]

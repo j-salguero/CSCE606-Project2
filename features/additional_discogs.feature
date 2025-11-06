@@ -1,4 +1,4 @@
-Feature: Discogs extra cases
+Feature: Discogs search
 
   Background:
     Given the database is clean

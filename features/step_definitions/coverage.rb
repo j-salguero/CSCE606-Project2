@@ -1,7 +1,6 @@
 def swallow
   yield
 rescue StandardError
-  # noop
 end
 
 module CukesFakeDiscogs
@@ -46,8 +45,6 @@ Given('I exercise backend code paths for coverage') do
   swallow { rh.new_artist_path }
   swallow { rh.search_path } if rh.respond_to?(:search_path)
 
-  # --- Models: exercise validations & common flows ---
-  # Artist validations
   a_invalid = Artist.new(name: nil)
   a_invalid.valid?
   a_invalid.errors.full_messages.join(', ')

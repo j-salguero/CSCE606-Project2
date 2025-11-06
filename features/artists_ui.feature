@@ -1,4 +1,4 @@
-Feature: Artists UI extras
+Feature: Empty Artists UI
 
   Background:
     Given the database is clean

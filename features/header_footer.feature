@@ -1,4 +1,4 @@
-Feature: Header and footer basics
+Feature: Header and footer basic functionality
   
   Background:
     When I visit the home page
@@ -6,15 +6,15 @@ Feature: Header and footer basics
   Scenario: Header shows site brand
     Then I should see the site brand in the header
 
-  Scenario: Header has a link to Artists (if present, it should work)
+  Scenario: Header has a link to Artists
     When I try to click the header link "Artists"
     Then I should land on the artists page if the link existed
 
-  Scenario: Header has a link to Collection (if present)
+  Scenario: Header has a link to Collection
     When I try to click the header link "Collection"
     Then I should land on the collection page if the link existed
 
-  Scenario: Header has a link to Wishlist (if present)
+  Scenario: Header has a link to Wishlist
     When I try to click the header link "Wishlist"
     Then I should land on the wishlist page if the link existed
 

@@ -1,4 +1,4 @@
-Feature: Collection basics
+Feature: My Collection basics
 
   Background:
     Given the database is clean

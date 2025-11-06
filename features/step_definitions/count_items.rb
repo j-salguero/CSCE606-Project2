@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-# --- Small utilities --------------------------------------------------------
-
 def xpath_text_literal(str)
   if str.include?("'") && str.include?('"')
     parts = str.split("'").map { |p| "'#{p}'" }
@@ -27,8 +23,6 @@ def ensure_on_collection_page!
   step 'I go to the collection page'
 end
 
-# --- Count helpers (with fallback to collection page) -----------------------
-
 def count_collection_items
   # Try current page first
   got = false
@@ -38,7 +32,6 @@ def count_collection_items
   end
   return count if got
 
-  # Fallback: go to collection page and try again
   ensure_on_collection_page!
   got = try_within_section([/My Collection/i, /Collection\b/i]) do
     count = all(:xpath, ".//button[normalize-space()='Remove from Collection'] | .//a[normalize-space()='Remove from Collection']").size
@@ -63,8 +56,6 @@ def count_wishlist_items
   count
 end
 
-# --- Click helpers (with smart scoping + fallback) --------------------------
-
 def click_first_add_to_collection_outside_collection_section
   # Prefer Explore/Search areas if present
   btn = nil
@@ -79,7 +70,6 @@ def click_first_add_to_collection_outside_collection_section
     break if btn
   end
 
-  # If nothing found yet, ensure we’re on the collection page (which has Explore)
   unless btn
     ensure_on_collection_page!
     try_within_section([/Explore Albums/i]) do
@@ -91,7 +81,6 @@ def click_first_add_to_collection_outside_collection_section
     end
   end
 
-  # Last resort: any Add to Collection not inside My Collection
   unless btn
     btn = first(:xpath,
       "(//button[normalize-space()='Add to Collection'] | //a[normalize-space()='Add to Collection'])" \
@@ -141,8 +130,7 @@ def click_first_add_to_wishlist_outside_wishlist_section
 end
 
 def click_first_remove_from_collection
-  # If we’re not already in a section, go to collection page
-  unless try_within_section([/My Collection/i, /Collection\b/i]) { true }
+    unless try_within_section([/My Collection/i, /Collection\b/i]) { true }
     ensure_on_collection_page!
   end
   try_within_section([/My Collection/i, /Collection\b/i]) do
@@ -167,11 +155,7 @@ def click_first_remove_from_wishlist
   end
 end
 
-# --- State holder -----------------------------------------------------------
-
 Before { @counts = {} }
-
-# --- Steps ------------------------------------------------------------------
 
 Given('I note the collection count')  { @counts[:collection_before] = count_collection_items }
 Given('I note the wishlist count')    { @counts[:wishlist_before] = count_wishlist_items }

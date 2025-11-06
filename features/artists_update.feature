@@ -1,4 +1,4 @@
-Feature: Artists update flows
+Feature: Update Artists
 
   Background:
     Given the database is clean

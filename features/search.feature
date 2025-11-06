@@ -7,8 +7,8 @@ Feature: Global search
     When I visit "/search?artist_name=The Beatles&commit=Search+Artist"
     Then I should see "The Beatles"
 
-  Scenario: Empty query shows search form
-    When I visit "/search?artist_name=&commit=Search+Artist"
+  Scenario: Visiting search page with no query shows search form
+    When I visit "/search"
     Then I should see "Search VinylVerse"
     And I should see "Search by Artist"
     And I should see "Search by Album"

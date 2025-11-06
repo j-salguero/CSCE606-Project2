@@ -1,4 +1,4 @@
-Feature: Wishlist basics
+Feature: My Wishlist basics
 
   Background:
     Given the database is clean

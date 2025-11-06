@@ -1,4 +1,4 @@
-Feature: Artists extra flows
+Feature: Artist functionality
 
   Background:
     Given the database is clean
@@ -10,7 +10,7 @@ Feature: Artists extra flows
     Then I should see "The Beatles"
     And I should see "Fleetwood Mac"
 
-  Scenario: Artist show page has a delete link (non-destructive)
+  Scenario: Artist show page has a delete link
     Given an artist named "Adele" exists
     When I view the artist "Adele"
     Then I should see "Destroy this artist"

@@ -3,7 +3,7 @@ Feature: Artists CRUD and views
   Background:
     Given the database is clean
 
-  Scenario: Artists index loads (basic smoke)
+  Scenario: Artists index loads
     When I go to the artists page
     Then I should see "Artists"
 
@@ -29,3 +29,15 @@ Feature: Artists CRUD and views
     Given an artist named "The Beatles" exists
     When I view the artist "The Beatles"
     Then I should see "The Beatles"
+
+  Scenario: Lookup fails when no name is provided
+  Given the database is clean
+  When I visit "/artists/lookup?name="
+  Then I should see "No artist name provided."
+
+Scenario: Lookup succeeds for an existing artist
+  Given the database is clean
+  And an artist named "Adele" exists
+  When I visit "/artists/lookup?name=Adele"
+  Then I should see "Adele"
+

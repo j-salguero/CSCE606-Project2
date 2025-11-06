@@ -16,7 +16,7 @@ Feature: Discogs lookup for artists
     Then I should see "Nonexistent Person"
     And I should see "Releases on Discogs: 0"
 
-  Scenario: Discogs 429 rate limit falls back gracefully
+  Scenario: Discogs rate limit
     Given Discogs responds with rate limit for "The Beatles"
     When I visit "/artists/lookup?name=The Beatles"
     Then I should see "The Beatles"

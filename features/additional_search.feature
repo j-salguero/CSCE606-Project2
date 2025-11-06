@@ -1,4 +1,4 @@
-Feature: Search edge cases
+Feature: Search Functionality
 
   Background:
     Given Discogs returns 1 artist result for "The Beatles" (id 82730)
@@ -11,3 +11,7 @@ Feature: Search edge cases
   Scenario: Mixed-case name still finds results
     When I visit "/search?artist_name=the BEATLES&commit=Search+Artist"
     Then I should see "The Beatles"
+
+Scenario: Search by album shows results
+  When I visit "/search?album_name=Abbey+Road&commit=Search+Album"
+  Then I should see "Abbey Road"

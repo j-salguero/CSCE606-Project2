@@ -48,6 +48,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -64,7 +65,9 @@ group :test do
   gem "webdrivers"
   gem "database_cleaner-active_record", require: false
   gem "webmock"
-  gem "simplecov", require: true
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'simplecov', require: false
 end
 
 group :production do

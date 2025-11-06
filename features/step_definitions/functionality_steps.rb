@@ -81,3 +81,7 @@ When('I remove the wishlist item {string}') do |title|
   end
 end
 
+When('I add {string} by {string} to my wishlist') do |album, artist|
+  WishlistItem.create!(title: album, artist: artist)
+  visit '/wishlist_items'
+end

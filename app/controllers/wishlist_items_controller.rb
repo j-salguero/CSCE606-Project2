@@ -1,5 +1,5 @@
 class WishlistItemsController < ApplicationController
-  def index
+    def index
     @wishlist_items = WishlistItem.all
   end
 

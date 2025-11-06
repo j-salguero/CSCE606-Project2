@@ -18,3 +18,19 @@ Then('I should see a link to the new artist form') do
      'Expected to find a link or button for creating a new artist'
 end
 
+Given('I am on the wishlist page') do
+  visit '/wishlist_items'
+end
+
+When("I visit the home controller page") do
+  visit "/home/index"
+end
+
+Given('I am logged out') do
+  visit '/logout' rescue nil
+  visit '/login'
+end
+
+Then('I should be on the collection page') do
+  expect(page).to have_current_path(collection_items_path)
+end
