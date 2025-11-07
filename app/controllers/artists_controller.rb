@@ -1,7 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :set_artist, only: %i[ show edit update destroy ]
 
-  # GET /artists or /artists.json
   def index
     #@artists = Artist.all
     @q = params[:q].to_s.strip
@@ -13,7 +12,6 @@ class ArtistsController < ApplicationController
       end
   end
 
-  # GET /artists/1 or /artists/1.json
   def show
     @artist = Artist.find(params[:id])
     discogs = DiscogsService.new
@@ -34,7 +32,7 @@ class ArtistsController < ApplicationController
             discogs.genre_for_artist(discogs_id)
         end
         else
-          nil
+          nil # discogs doesn't have a specific genre
         end
 
       @discogs_country = 
@@ -43,20 +41,20 @@ class ArtistsController < ApplicationController
             discogs.country_for_artist(discogs_id)
         end
         else
-          nil
+          nil #discogs doesn't have a specific country
         end
   end
 
-  # GET /artists/new
+  # new artist
   def new
     @artist = Artist.new
   end
 
-  # GET /artists/1/edit
+  # edit artist
   def edit
   end
 
-  # POST /artists or /artists.json
+  # create artist
   def create
     @artist = Artist.new(artist_params)
 
@@ -71,7 +69,7 @@ class ArtistsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /artists/1 or /artists/1.json
+  # update artist
   def update
     respond_to do |format|
       if @artist.update(artist_params)
@@ -84,7 +82,7 @@ class ArtistsController < ApplicationController
     end
   end
 
-  # DELETE /artists/1 or /artists/1.json
+  # DELETE artists
   def destroy
     @artist.destroy!
 
@@ -121,12 +119,10 @@ class ArtistsController < ApplicationController
   end
 end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_artist
       @artist = Artist.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def artist_params
       params.require(:artist).permit( :name, :genre, :country, :discogs_id, :discogs_uri )
     end
