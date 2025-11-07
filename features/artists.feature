@@ -31,13 +31,13 @@ Feature: Artists CRUD and views
     Then I should see "The Beatles"
 
   Scenario: Lookup fails when no name is provided
-  Given the database is clean
-  When I visit "/artists/lookup?name="
-  Then I should see "No artist name provided."
+    Given the database is clean
+    When I visit "/artists/lookup?name="
+    Then I should see "No artist name provided."
 
-Scenario: Lookup succeeds for an existing artist
-  Given the database is clean
-  And an artist named "Adele" exists
-  When I visit "/artists/lookup?name=Adele"
-  Then I should see "Adele"
+  Scenario: Lookup succeeds for an existing artist
+    Given the database is clean
+    And an artist named "Adele" exists
+    When I visit "/artists/lookup?name=Adele"
+    Then I should see "Adele"
 

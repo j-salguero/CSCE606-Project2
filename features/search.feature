@@ -1,4 +1,4 @@
-Feature: Global search
+Feature: Search works
 
   Background:
     Given Discogs returns 1 artist result for "The Beatles" (id 82730)

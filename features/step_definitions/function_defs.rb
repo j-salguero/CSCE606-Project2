@@ -9,6 +9,15 @@ def xpath_text_literal(str)
   end
 end
 
+def xpath_text_literal(s)
+  if s.include?("'")
+    parts = s.split("'").map { |p| "'#{p}'" }
+    "concat(#{parts.join(%q{, "'", })})"
+  else
+    "'#{s}'"
+  end
+end
+
 def try_within_section(label_regexps)
   nodes = all(:xpath, "//*", minimum: 1)
   node = nodes.find { |n| label_regexps.any? { |rx| n.text.to_s =~ rx } }
@@ -18,13 +27,10 @@ def try_within_section(label_regexps)
 end
 
 def ensure_on_collection_page!
-  # Reuse your navigation step so routes/helpers stay in one place.
-  # (Calling Cucumber steps from steps is OK here.)
   step 'I go to the collection page'
 end
 
 def count_collection_items
-  # Try current page first
   got = false
   count = 0
   got = try_within_section([/My Collection/i, /Collection\b/i]) do
@@ -57,7 +63,6 @@ def count_wishlist_items
 end
 
 def click_first_add_to_collection_outside_collection_section
-  # Prefer Explore/Search areas if present
   btn = nil
   [[/Explore Albums/i], [/Search VinylVerse/i, /Search by Artist/i]].each do |rxs|
     next unless try_within_section(rxs) do
@@ -155,36 +160,50 @@ def click_first_remove_from_wishlist
   end
 end
 
-Before { @counts = {} }
-
-Given('I note the collection count')  { @counts[:collection_before] = count_collection_items }
-Given('I note the wishlist count')    { @counts[:wishlist_before] = count_wishlist_items }
-
-When('I add any album to my collection') { click_first_add_to_collection_outside_collection_section }
-When('I add any album to my wishlist')   { click_first_add_to_wishlist_outside_wishlist_section }
-When('I remove any album from my collection') { click_first_remove_from_collection }
-When('I remove any album from my wishlist')   { click_first_remove_from_wishlist }
-
-Then('the collection count should increase by {int}') do |delta|
-  after  = count_collection_items
-  before = @counts[:collection_before] || 0
-  expect(after - before).to eq(delta), "Expected collection to change by #{delta}, but it changed by #{after - before} (before=#{before}, after=#{after})"
+def find_header_node
+  candidates = [
+    'header',
+    'nav[role="navigation"]',
+    'nav.site-nav',
+    '.navbar',
+    '.site-header',
+    'div.header',
+  ]
+  candidates.each do |sel|
+    nodes = all(:css, sel, minimum: 0, wait: 0)
+    return nodes.first if nodes.any?
+  end
+  nil
 end
 
-Then('the collection count should decrease by {int}') do |delta|
-  after  = count_collection_items
-  before = @counts[:collection_before] || 0
-  expect(before - after).to eq(delta), "Expected collection to decrease by #{delta}, but it decreased by #{before - after} (before=#{before}, after=#{after})"
+def find_footer_node
+  candidates = [
+    'footer',
+    '[class*="footer"]',
+    '[id*="footer"]',
+    '.site-footer',
+    'div.footer',
+    'div#footer',
+  ]
+  candidates.each do |sel|
+    nodes = all(:css, sel, minimum: 0, wait: 0)
+    return nodes.first if nodes.any?
+  end
+  nil
 end
 
-Then('the wishlist count should increase by {int}') do |delta|
-  after  = count_wishlist_items
-  before = @counts[:wishlist_before] || 0
-  expect(after - before).to eq(delta), "Expected wishlist to change by #{delta}, but it changed by #{after - before} (before=#{before}, after=#{after})"
-end
-
-Then('the wishlist count should decrease by {int}') do |delta|
-  after  = count_wishlist_items
-  before = @counts[:wishlist_before] || 0
-  expect(before - after).to eq(delta), "Expected wishlist to decrease by #{delta}, but it decreased by #{before - after} (before=#{before}, after=#{after})"
+def click_header_link_if_exists(label)
+  header = find_header_node
+  if header
+    within(header) do
+      if has_link?(label, wait: 0)
+        click_link(label)
+        return :clicked
+      elsif has_button?(label, wait: 0)
+        click_button(label)
+        return :clicked
+      end
+    end
+  end
+  :absent
 end

@@ -1,4 +1,4 @@
-Feature: Safety and secrets
+Feature: Data safety
 
   Scenario: No secrets are leaked in UI
     When I visit the home page

@@ -21,3 +21,12 @@ Feature: Discogs lookup for artists
     When I visit "/artists/lookup?name=The Beatles"
     Then I should see "The Beatles"
     And I should see "Releases on Discogs"
+
+  Scenario: Lookup shows numeric count of releases
+    When I visit "/artists/lookup?name=The Beatles"
+    Then I should see "Releases on Discogs: 2"
+
+  Scenario: Lookup shows unknown genre/country with dashes
+    When I visit "/artists/lookup?name=Nonexistent Person"
+    Then I should see "Genre: -"
+    And I should see "Country: -"

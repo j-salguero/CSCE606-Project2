@@ -1,49 +1,25 @@
-def find_header_node
-  candidates = [
-    'header',
-    'nav[role="navigation"]',
-    'nav.site-nav',
-    '.navbar',
-    '.site-header',
-    'div.header',
-  ]
-  candidates.each do |sel|
-    nodes = all(:css, sel, minimum: 0, wait: 0)
-    return nodes.first if nodes.any?
-  end
-  nil
+Then('the collection count should increase by {int}') do |delta|
+  after  = count_collection_items
+  before = @counts[:collection_before] || 0
+  expect(after - before).to eq(delta), "Expected collection to change by #{delta}, but it changed by #{after - before} (before=#{before}, after=#{after})"
 end
 
-def find_footer_node
-  candidates = [
-    'footer',
-    '[class*="footer"]',
-    '[id*="footer"]',
-    '.site-footer',
-    'div.footer',
-    'div#footer',
-  ]
-  candidates.each do |sel|
-    nodes = all(:css, sel, minimum: 0, wait: 0)
-    return nodes.first if nodes.any?
-  end
-  nil
+Then('the collection count should decrease by {int}') do |delta|
+  after  = count_collection_items
+  before = @counts[:collection_before] || 0
+  expect(before - after).to eq(delta), "Expected collection to decrease by #{delta}, but it decreased by #{before - after} (before=#{before}, after=#{after})"
 end
 
-def click_header_link_if_exists(label)
-  header = find_header_node
-  if header
-    within(header) do
-      if has_link?(label, wait: 0)
-        click_link(label)
-        return :clicked
-      elsif has_button?(label, wait: 0)
-        click_button(label)
-        return :clicked
-      end
-    end
-  end
-  :absent
+Then('the wishlist count should increase by {int}') do |delta|
+  after  = count_wishlist_items
+  before = @counts[:wishlist_before] || 0
+  expect(after - before).to eq(delta), "Expected wishlist to change by #{delta}, but it changed by #{after - before} (before=#{before}, after=#{after})"
+end
+
+Then('the wishlist count should decrease by {int}') do |delta|
+  after  = count_wishlist_items
+  before = @counts[:wishlist_before] || 0
+  expect(before - after).to eq(delta), "Expected wishlist to decrease by #{delta}, but it decreased by #{before - after} (before=#{before}, after=#{after})"
 end
 
 Then('I should see the site brand in the header') do
@@ -59,9 +35,6 @@ Then('I should see the site brand in the header') do
   end
 end
 
-When('I try to click the header link {string}') do |label|
-  @header_click_result = click_header_link_if_exists(label)
-end
 
 Then('I should land on the artists page if the link existed') do
   if @header_click_result == :clicked
@@ -122,3 +95,32 @@ Then('the footer should have a phone and email link') do
   expect(email_visible).to be(true), "Expected an email-like text visible somewhere in the footer/page"
 end
 
+Then("I should be on the wishlist page") do
+  expect(page.current_path).to eq(wishlist_items_path)
+end
+
+Then('I should see {string}')        { |text| expect(page).to have_content(text) }
+Then('I should not see {string}')    { |text| expect(page).not_to have_content(text) }
+Then('I should see a link to {string}') { |text| expect(page).to have_link(text) }
+
+Then('I should see a link to the new artist form') do
+  expect(
+    page.has_selector?(%(a[href="#{new_artist_path}"])) ||
+    page.has_link?(/New\s*Artist/i) ||
+    page.has_button?(/New\s*Artist/i)
+  ).to be(true),
+     'Expected to find a link or button for creating a new artist'
+end
+
+Then('I should be on the collection page') do
+  expect(page).to have_current_path(collection_items_path)
+end
+
+Then('I should be logged in as username {string}') do |username|
+  expect(page).to have_content(username)
+  expect(page).to have_content("My Vinyl Space")
+end
+
+Then("I should be on {string}") do |path|
+  expect(page).to have_current_path(path)
+end

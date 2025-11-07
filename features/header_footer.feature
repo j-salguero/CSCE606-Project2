@@ -1,4 +1,4 @@
-Feature: Header and footer basic functionality
+Feature: Header and footer functionality
   
   Background:
     When I visit the home page

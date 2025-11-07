@@ -32,26 +32,26 @@
           null,
           null,
           1,
+          6,
+          null,
+          6,
+          4,
           4,
           null,
-          4,
-          3,
-          3,
-          null,
-          1,
-          1,
+          2,
+          2,
           null,
           null,
           null,
           1,
-          0,
-          0,
+          1,
+          1,
           null
         ],
         "branches": {
           "[:if, 0, 10, 4, 16, 7]": {
-            "[:then, 1, 11, 6, 12, 92]": 3,
-            "[:else, 2, 14, 6, 15, 48]": 1
+            "[:then, 1, 11, 6, 12, 92]": 4,
+            "[:else, 2, 14, 6, 15, 48]": 2
           }
         }
       },
@@ -64,11 +64,11 @@
           1,
           null,
           1,
-          64,
+          80,
           null,
           null,
           1,
-          61,
+          74,
           null,
           null,
           1,
@@ -80,8 +80,8 @@
         ],
         "branches": {
           "[:if, 0, 8, 4, 8, 78]": {
-            "[:then, 1, 8, 4, 8, 57]": 9,
-            "[:else, 2, 8, 4, 8, 78]": 55
+            "[:then, 1, 8, 4, 8, 57]": 18,
+            "[:else, 2, 8, 4, 8, 78]": 62
           },
           "[:unless, 3, 16, 4, 19, 7]": {
             "[:else, 4, 16, 4, 19, 7]": 0,
@@ -93,102 +93,102 @@
         "lines": [
           1,
           1,
-          15,
-          15,
+          24,
+          24,
           null,
           null,
           1,
-          2,
+          7,
           null,
           null,
-          2,
+          7,
           null,
           null,
-          2,
-          2,
-          null,
-          null,
-          null,
-          2,
+          7,
+          4,
           null,
           null,
           null,
-          2,
-          2,
+          7,
           null,
           null,
           null,
-          2,
-          0,
+          4,
+          4,
           null,
           null,
           null,
-          2,
-          null,
-          2,
-          0,
-          null,
-          2,
-          null,
-          2,
-          2,
-          null,
-          0,
-          null,
-          null,
-          null,
-          null,
-          1,
-          2,
-          2,
-          2,
-          2,
-          null,
-          null,
+          7,
           1,
           null,
+          null,
+          null,
+          7,
+          null,
+          7,
           2,
+          null,
+          5,
+          null,
+          5,
+          5,
+          null,
           0,
-          null,
-          null,
-          2,
-          2,
-          0,
-          null,
-          2,
           null,
           null,
           null,
           null,
           1,
-          null,
           2,
+          2,
+          2,
+          2,
+          null,
+          null,
+          1,
+          null,
+          7,
+          1,
+          null,
+          null,
+          6,
+          6,
+          0,
+          null,
+          6,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          4,
           null
         ],
         "branches": {
           "[:if, 0, 28, 4, 30, 7]": {
-            "[:then, 1, 29, 6, 29, 51]": 0,
-            "[:else, 2, 28, 4, 30, 7]": 2
+            "[:then, 1, 29, 6, 29, 51]": 1,
+            "[:else, 2, 28, 4, 30, 7]": 6
           },
           "[:if, 3, 35, 4, 45, 7]": {
-            "[:then, 4, 36, 6, 36, 95]": 0,
-            "[:else, 5, 38, 6, 44, 9]": 2
+            "[:then, 4, 36, 6, 36, 95]": 2,
+            "[:else, 5, 38, 6, 44, 9]": 5
           },
           "[:if, 6, 40, 6, 44, 9]": {
-            "[:then, 7, 41, 8, 41, 111]": 2,
+            "[:then, 7, 41, 8, 41, 111]": 5,
             "[:else, 8, 43, 8, 43, 76]": 0
           },
           "[:if, 9, 57, 4, 67, 7]": {
-            "[:then, 10, 58, 6, 58, 27]": 0,
-            "[:else, 11, 61, 6, 66, 9]": 2
+            "[:then, 10, 58, 6, 58, 27]": 1,
+            "[:else, 11, 61, 6, 66, 9]": 6
           },
           "[:if, 12, 62, 6, 66, 9]": {
             "[:then, 13, 63, 8, 63, 38]": 0,
-            "[:else, 14, 65, 8, 65, 24]": 2
+            "[:else, 14, 65, 8, 65, 24]": 6
           },
           "[:if, 15, 72, 4, 72, 65]": {
             "[:then, 16, 72, 4, 72, 19]": 0,
-            "[:else, 17, 72, 4, 72, 65]": 2
+            "[:else, 17, 72, 4, 72, 65]": 4
           }
         }
       },
@@ -207,74 +207,30 @@
         ],
         "branches": {}
       },
-      "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/controllers/wishlist_items_controller.rb": {
+      "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/controllers/search_controller.rb": {
         "lines": [
-          1,
-          1,
-          12,
-          null,
           null,
           1,
-          4,
-          4,
-          null,
-          null,
-          4,
-          null,
-          4,
           1,
-          1,
+          5,
           null,
-          null,
-          3,
-          null,
-          null,
-          null,
-          null,
-          null,
-          3,
-          3,
-          null,
-          0,
-          null,
-          null,
-          null,
-          1,
+          5,
           2,
           2,
-          2,
-          2,
-          null,
-          null,
+          3,
           1,
-          4,
           1,
-          null,
-          3,
-          3,
-          0,
-          null,
-          3,
-          null,
           null,
           null
         ],
         "branches": {
-          "[:if, 0, 13, 4, 16, 7]": {
-            "[:then, 1, 14, 6, 15, 12]": 1,
-            "[:else, 2, 13, 4, 16, 7]": 3
+          "[:if, 0, 6, 4, 12, 7]": {
+            "[:then, 1, 7, 6, 8, 29]": 2,
+            "[:else, 2, 9, 4, 12, 7]": 3
           },
-          "[:if, 3, 24, 4, 28, 7]": {
-            "[:then, 4, 25, 6, 25, 96]": 3,
-            "[:else, 5, 27, 6, 27, 72]": 0
-          },
-          "[:if, 6, 39, 4, 48, 7]": {
-            "[:then, 7, 40, 6, 40, 27]": 1,
-            "[:else, 8, 42, 6, 47, 9]": 3
-          },
-          "[:if, 9, 43, 6, 47, 9]": {
-            "[:then, 10, 44, 8, 44, 38]": 0,
-            "[:else, 11, 46, 8, 46, 24]": 3
+          "[:if, 3, 9, 4, 12, 7]": {
+            "[:then, 4, 10, 6, 11, 28]": 1,
+            "[:else, 5, 9, 4, 12, 7]": 2
           }
         }
       },
@@ -282,14 +238,6 @@
         "lines": [
           1,
           1,
-          1,
-          1,
-          null
-        ],
-        "branches": {}
-      },
-      "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/models/album.rb": {
-        "lines": [
           1,
           1,
           null
@@ -458,32 +406,13 @@
           }
         }
       },
-      "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/controllers/search_controller.rb": {
+      "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/models/album.rb": {
         "lines": [
-          null,
           1,
           1,
-          5,
-          null,
-          5,
-          2,
-          2,
-          3,
-          1,
-          1,
-          null,
           null
         ],
-        "branches": {
-          "[:if, 0, 6, 4, 12, 7]": {
-            "[:then, 1, 7, 6, 8, 29]": 2,
-            "[:else, 2, 9, 4, 12, 7]": 3
-          },
-          "[:if, 3, 9, 4, 12, 7]": {
-            "[:then, 4, 10, 6, 11, 28]": 1,
-            "[:else, 5, 9, 4, 12, 7]": 2
-          }
-        }
+        "branches": {}
       },
       "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/controllers/home_controller.rb": {
         "lines": [
@@ -493,20 +422,91 @@
         ],
         "branches": {}
       },
+      "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/controllers/wishlist_items_controller.rb": {
+        "lines": [
+          1,
+          1,
+          12,
+          null,
+          null,
+          1,
+          4,
+          4,
+          null,
+          null,
+          4,
+          null,
+          4,
+          1,
+          1,
+          null,
+          null,
+          3,
+          null,
+          null,
+          null,
+          null,
+          null,
+          3,
+          3,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null,
+          1,
+          4,
+          1,
+          null,
+          3,
+          3,
+          0,
+          null,
+          3,
+          null,
+          null,
+          null
+        ],
+        "branches": {
+          "[:if, 0, 13, 4, 16, 7]": {
+            "[:then, 1, 14, 6, 15, 12]": 1,
+            "[:else, 2, 13, 4, 16, 7]": 3
+          },
+          "[:if, 3, 24, 4, 28, 7]": {
+            "[:then, 4, 25, 6, 25, 96]": 3,
+            "[:else, 5, 27, 6, 27, 72]": 0
+          },
+          "[:if, 6, 39, 4, 48, 7]": {
+            "[:then, 7, 40, 6, 40, 27]": 1,
+            "[:else, 8, 42, 6, 47, 9]": 3
+          },
+          "[:if, 9, 43, 6, 47, 9]": {
+            "[:then, 10, 44, 8, 44, 38]": 0,
+            "[:else, 11, 46, 8, 46, 24]": 3
+          }
+        }
+      },
       "/home/jsalg/TAMU_CSCE606/CSCE606-Project2/app/controllers/users_controller.rb": {
         "lines": [
           null,
           1,
           1,
-          3,
+          5,
           null,
           null,
           1,
-          2,
+          4,
           null,
+          4,
           2,
-          0,
-          0,
+          2,
           null,
           2,
           2,
@@ -516,17 +516,17 @@
           1,
           null,
           1,
-          2,
+          4,
           null
         ],
         "branches": {
           "[:if, 0, 10, 4, 16, 7]": {
-            "[:then, 1, 11, 6, 12, 88]": 0,
+            "[:then, 1, 11, 6, 12, 88]": 2,
             "[:else, 2, 14, 6, 15, 48]": 2
           }
         }
       }
     },
-    "timestamp": 1762424477
+    "timestamp": 1762493852
   }
 }
