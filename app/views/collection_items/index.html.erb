@@ -1,31 +1,134 @@
 <!-- app/views/collection_items/index.html.erb -->
-<div class="collection-container py-5">
-  <h1 class="page-title text-center mb-5">🎶 My Collection</h1>
+<div class="collection-page py-5 text-center">
+  <h1 class="page-title mb-5">🎵 My Vinyl Space</h1>
 
-  <% if @collection_items.present? %>
-    <div class="row justify-content-center">
-      <% @collection_items.each do |item| %>
-        <div class="col-md-4 mb-4">
-          <div class="album-card p-3 shadow-sm h-100">
-            <div class="album-info">
-              <h4 class="album-title"><%= item.title %></h4>
-              <p class="album-artist mb-2"><%= item.artist %></p>
-              <% if item.release_date.present? %>
-                <p class="album-year"><small>Released: <%= item.release_date %></small></p>
-              <% end %>
-            </div>
-            <div class="album-actions mt-3">
-              <%= link_to 'View Details', collection_item_path(item), class: "btn btn-teal" %>
-              <%= link_to '❤️', '#', class: "favorite-icon ms-2" %>
-            </div>
+  <!-- 🎧 Explore Albums Section -->
+  <section class="explore-section mb-5">
+    <h2 class="section-title mb-4">Explore Albums</h2>
+    <div class="album-grid">
+      <% albums = [
+        { id: 1, title: "Thriller",     artist: "Michael Jackson", image_url: "https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" },
+        { id: 2, title: "Whitney",      artist: "Whitney Houston", image_url: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Whitney_Houston_Welcome_Home_Heroes_1_cropped.jpg" },
+        { id: 3, title: "Rumours",      artist: "Fleetwood Mac",   image_url: "https://upload.wikimedia.org/wikipedia/en/f/fb/FMacRumours.PNG" },
+        { id: 4, title: "Purple Rain",  artist: "Prince",          image_url: "https://upload.wikimedia.org/wikipedia/en/9/9c/Princepurplerain.jpg" },
+        { id: 5, title: "Abbey Road",   artist: "The Beatles",     image_url: "https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" },
+        { id: 6, title: "21",           artist: "Adele",           image_url: "https://upload.wikimedia.org/wikipedia/en/1/1b/Adele_-_21.png" }
+      ] %>
+
+      <% albums.each do |album| %>
+        <div class="album-card text-center p-3">
+          <img src="<%= album[:image_url] %>" alt="<%= album[:title] %>" class="vinyl-img mb-3" />
+          <h5 class="album-title mb-1"><%= album[:title] %></h5>
+          <p class="album-artist text-muted mb-3">
+            <%= link_to album[:artist], artist_lookup_path(name: album[:artist]), class: "artist-link" %>
+          </p>
+          <div class="d-flex justify-content-center gap-2">
+            <%= button_to 'Add to Collection', collection_items_path(album_id: album[:id]), method: :post, class: "btn btn-info btn-sm" %>
+            <%= button_to 'Add to Wishlist',  wishlist_items_path(album_id: album[:id]),   method: :post, class: "btn btn-outline-light btn-sm" %>
           </div>
         </div>
       <% end %>
     </div>
-  <% else %>
-    <div class="empty-state text-center mt-5">
-      <p class="lead text-muted mb-4">Your collection is empty for now 🎧</p>
-      <%= link_to 'Add Albums to Collection', search_index_path, class: "btn btn-teal" %>
-    </div>
-  <% end %>
+  </section>
+
+  <!-- 💿 My Collection Section -->
+  <section class="collection-section mb-5">
+    <h2 class="section-title mb-4">My Collection</h2>
+
+    <% if @collection_items.present? %>
+      <div class="collection-grid">
+        <% @collection_items.each do |item| %>
+          <div class="collection-card">
+            <% if item.album&.image_url.present? %>
+              <img src="<%= item.album.image_url %>" alt="<%= item.album.title %>">
+            <% else %>
+              <div class="placeholder">🎶</div>
+            <% end %>
+
+            <h5 class="album-title"><%= item.album&.title || item.title %></h5>
+
+            <p class="album-artist">
+              <% album = item.respond_to?(:album) ? item.album : nil %>
+              <% artist_obj  = album&.respond_to?(:artist) ? album.artist : nil %>
+              <% artist_name = artist_obj&.name ||
+                               (album&.respond_to?(:artist_name) && album.artist_name) ||
+                               item.try(:artist) || "Unknown Artist" %>
+
+              <% if artist_obj.present? %>
+                <%= link_to artist_name, artist_path(artist_obj), class: "artist-link" %>
+              <% elsif artist_name.present? && artist_name != "Unknown Artist" %>
+                <%= link_to artist_name, artist_lookup_path(name: artist_name), class: "artist-link" %>
+              <% else %>
+                <span>Unknown Artist</span>
+              <% end %>
+            </p>
+
+            <% if item.album&.year.present? %>
+              <p class="album-year">Released: <%= item.album.year %></p>
+            <% end %>
+
+            <%= button_to 'Remove from Collection',
+                collection_item_path(item),
+                method: :delete,
+                class: 'remove-btn',
+                data: { confirm: "Remove #{item.album&.title || item.title} from your collection?" } %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">You haven't added any albums yet 🎶</p>
+      <p><%= link_to "Search for albums", search_path, class: "btn btn-primary mt-3" %></p>
+    <% end %>
+  </section>
+
+  <!-- 💖 My Wishlist Section -->
+  <section class="wishlist-section mb-5">
+    <h2 class="section-title mb-4">My Wishlist</h2>
+    <% if @wishlist_items.present? %>
+      <div class="album-grid">
+        <% @wishlist_items.each do |item| %>
+          <div class="album-card text-center p-3">
+            <% if item.respond_to?(:image_url) && item.image_url.present? %>
+              <img src="<%= item.image_url %>" alt="<%= item.title %>" class="vinyl-img mb-3">
+            <% else %>
+              <div class="placeholder mb-2">💿</div>
+            <% end %>
+
+            <h5 class="album-title mb-1"><%= item.title %></h5>
+
+            <p class="album-artist text-muted mb-3">
+              <% album = item.respond_to?(:album) ? item.album : nil %>
+              <% artist_obj  = album&.respond_to?(:artist) ? album.artist : nil %>
+              <% artist_name = artist_obj&.name ||
+                               (album&.respond_to?(:artist_name) && album.artist_name) ||
+                               item.try(:artist) || "Unknown Artist" %>
+
+              <% if artist_obj.present? %>
+                <%= link_to artist_name, artist_path(artist_obj), class: "artist-link" %>
+              <% elsif artist_name.present? && artist_name != "Unknown Artist" %>
+                <%= link_to artist_name, artist_lookup_path(name: artist_name), class: "artist-link" %>
+              <% else %>
+                <span>Unknown Artist</span>
+              <% end %>
+            </p>
+
+            <%= button_to 'Remove from Wishlist',
+                wishlist_item_path(item),
+                method: :delete,
+                class: 'remove-btn',
+                data: { confirm: "Remove #{item.title}?" } %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted">No albums in your wishlist yet 💜</p>
+      <%= link_to "Search for albums", search_path, class: "btn btn-primary mt-3" %>
+    <% end %>
+  </section>
+
+  <!-- 🎵 Add More Buttons -->
+  <div class="add-more-container">
+    <%= link_to "➕ Add More to Collection", search_path, class: "add-btn left-btn" %>
+    <%= link_to "🎧 Add More to Wishlist",  search_path, class: "add-btn right-btn" %>
+  </div>
 </div>

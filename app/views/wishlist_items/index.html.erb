@@ -1,21 +1,79 @@
+<!-- app/views/wishlist_items/index.html.erb -->
+<div class="wishlist-section wishlist-page py-5">
+  <h1 class="text-center mb-4">🎧 My Wishlist</h1>
+  <p class="text-center text-muted mb-5">Albums I want to add to my collection</p>
 
+  <div class="wishlist-container" style="max-width: 1200px; margin: 0 auto;">
+    <% if @wishlist_items.present? %>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+        <% @wishlist_items.each do |item| %>
+          <div class="album-card wishlist-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #140020; box-shadow: 0 0 15px rgba(155, 0, 255, 0.4); position: relative;">
 
-<h1>🎧 My Wishlist</h1>
-<p>Albums I want to add to my collection:</p>
+            <%# Image (prefer item.image_url; don't assume album exists) %>
+            <% if item.try(:image_url).present? %>
+              <img src="<%= item.image_url %>" alt="<%= item.title %>" class="vinyl-img" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+            <% else %>
+              <div style="width: 100%; height: 250px; background: #1a001f; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                <span style="color: #999; font-size: 48px;">💿</span>
+              </div>
+            <% end %>
 
-<div class="wishlist-container">
-  <% @wishlist_items = [
-      { title: "Thriller", artist: "Michael Jackson", year: 1982 },
-      { title: "Back to Black", artist: "Amy Winehouse", year: 2006 },
-      { title: "Random Access Memories", artist: "Daft Punk", year: 2013 }
-    ] %>
+            <h3 class="album-title" style="font-size: 18px; margin-bottom: 8px; color: #e0c3ff;">
+              <%= item.title %>
+            </h3>
 
-  <% @wishlist_items.each do |item| %>
-    <div class="wishlist-card" style="border:1px solid #ccc; padding:10px; margin:10px; border-radius:10px;">
-      <h3><%= item[:title] %></h3>
-      <p><strong>Artist:</strong> <%= item[:artist] %></p>
-      <p><strong>Year:</strong> <%= item[:year] %></p>
-    </div>
-  <% end %>
+            <%# Clickable artist (prefer string on item; fall back to album->artist) %>
+            <p class="album-artist text-muted mb-3" style="color: #bbb; margin-bottom: 12px; position: relative; z-index: 2;">
+              <% artist_obj  = item.try(:album).try(:artist) %>
+              <% artist_name = item.try(:artist).presence ||
+                               item.try(:artist_name).presence ||
+                               artist_obj.try(:name) ||
+                               item.try(:album).try(:artist_name) ||
+                               "Unknown Artist" %>
+
+              <strong>Artist:</strong>
+              <% if artist_obj.present? %>
+                <%= link_to artist_name, artist_path(artist_obj), class: "artist-link" %>
+              <% elsif artist_name.present? && artist_name != "Unknown Artist" %>
+                <%= link_to artist_name, artist_lookup_path(name: artist_name), class: "artist-link" %>
+              <% else %>
+                <span>Unknown Artist</span>
+              <% end %>
+            </p>
+
+            <div style="margin-top: 15px; position: relative; z-index: 0;">
+              <%= button_to 'Remove from Wishlist',
+                    wishlist_item_path(item),
+                    method: :delete,
+                    class: 'remove-btn',
+                    data: { confirm: "Remove #{item.title}?" } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <!-- ✨ Empty Wishlist Display -->
+      <div class="text-center">
+        <p class="text-muted mb-4">Your wishlist is empty 💜</p>
+        <p>Here are some albums you might love 🎶</p>
+
+        <div class="recommendations">
+          <div class="album-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Adele_-_Live_2009_%284%29.jpg" alt="Adele - 21">
+            <p><strong>Adele</strong><br>21</p>
+          </div>
+          <div class="album-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/9/9c/Princepurplerain.jpg" alt="Prince - Purple Rain">
+            <p><strong>Prince</strong><br>Purple Rain</p>
+          </div>
+          <div class="album-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/b/b7/NirvanaNevermindalbumcover.jpg" alt="Nirvana - Nevermind">
+            <p><strong>Nirvana</strong><br>Nevermind</p>
+          </div>
+        </div>
+
+        <%= link_to "🔍 Search for albums to add", search_path, class: "search-btn" %>
+      </div>
+    <% end %>
+  </div>
 </div>
-

@@ -1,0 +1,35 @@
+Feature: Artist functionality
+
+  Background:
+    Given the database is clean
+
+  Scenario: Artists index lists multiple artists
+    Given an artist named "The Beatles" exists
+    And an artist named "Fleetwood Mac" exists
+    When I go to the artists page
+    Then I should see "The Beatles"
+    And I should see "Fleetwood Mac"
+
+  Scenario: Artist show page has a delete link
+    Given an artist named "Adele" exists
+    When I view the artist "Adele"
+    Then I should see "Destroy this artist"
+
+  Scenario: Artists index shows empty state
+    When I go to the artists page
+    Then I should see "No artists found yet"
+
+  Scenario: Update artist name succeeds
+    Given an artist named "Whitney Houston" exists
+    When I go to the edit page for artist "Whitney Houston"
+    And I fill in "Name" with "Whitney"
+    And I press "Update"
+    Then I should see "Whitney"
+
+  Scenario: Update artist fails with blank name
+    Given an artist named "Adele" exists
+    When I view the artist "Adele"
+    And I click "Edit this artist"
+    And I fill in "Name" with ""
+    And I press "Update"
+    Then I should see "Name can't be blank"

@@ -8,3 +8,582 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e9e4f0, #d3cce3);
+}
+
+.login-card {
+  background: #f7f5fa;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+  color: #4a148c;
+}
+
+.icon {
+  font-size: 1.8rem;
+  margin-right: 6px;
+}
+
+.input-label {
+   display: block;
+  color: #c8a9ff; /* soft lavender */
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.5px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #5e3ca4; /* soft purple border */
+  background-color: #1a1a1a; /* dark field to match black background */
+  color: #f5f0ff; /* white/lavender text */
+  margin-bottom: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #7b1fa2;
+  outline: none;
+  box-shadow: 0 0 6px rgba(123, 31, 162, 0.3);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.8rem;
+  background: #7b1fa2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: #9c27b0;
+}
+
+.back-to-home {
+  color: #4a148c;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-to-home:hover {
+  text-decoration: underline;
+}
+
+.album-card {
+  background-color: #111;
+  color: #fff;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.album-card:hover {
+  transform: scale(1.05);
+}
+
+.page-title {
+  color: #b993ff;
+  font-weight: bold;
+}
+
+.section-title {
+  color: #00e1ff;
+  font-weight: 600;
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.album-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.album-card {
+  background-color: #111;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  width: 280px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.album-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.vinyl-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.page-title {
+  color: #b993ff;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(185, 147, 255, 0.6);
+}
+
+.section-title {
+  color: #00e1ff;
+  font-weight: 600;
+}
+
+.site-header {
+  text-align: center;
+  background: #121212;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 10px 12px;
+}
+
+.site-header .nav-links a {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 6px 12px;
+  background: #7b1fa2;       
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid #9c27b0; 
+  border-radius: 8px;         
+  font-weight: 600;
+}
+
+.site-footer {
+  text-align: center;
+  background: #0f0f10;
+  border-top: 1px solid #2a2a2a;
+  color: #ddd;
+  padding: 14px 12px;
+  margin: 4px 0;
+}
+
+.album-artist a.artist-link,
+.album-card .album-artist a.artist-link,
+.collection-section .album-artist a.artist-link,
+.wishlist-section .album-artist a.artist-link {
+  color: #fff !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.search-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 30px;
+  background: linear-gradient(90deg, #8a2be2, #a855f7);
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 0 10px #8a2be2;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #d08bff;
+}
+
+.recommendations {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+.album-card img {
+  background: #1a001f;
+  border-radius: 12px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(155, 0, 255, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* === NAVBAR STYLING === */
+.navbar {
+  background-color: #0a0018;
+  padding: 25px 0;
+  text-align: center;
+  box-shadow: 0 0 15px #6a0dad;
+  border-bottom: 2px solid #8a2be2;
+}
+
+.app-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #d8b4fe;
+  margin-bottom: 15px;
+  text-shadow: 0 0 15px #b57bff, 0 0 25px #8a2be2;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: #e0c3ff;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease-in-out;
+  text-shadow: 0 0 8px #a855f7;
+}
+
+.nav-link:hover {
+  color: #fff;
+  text-shadow: 0 0 15px #ff00ff, 0 0 25px #8a2be2;
+  transform: scale(1.1);
+}
+
+/* 💿 My Collection Grid Layout */
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  justify-items: center;
+  gap: 25px;
+  margin-top: 40px;
+}
+
+/* 💜 Collection Card Styling */
+.collection-card {
+  background: #1a001f;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(155, 0, 255, 0.4);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 230px;
+}
+
+.collection-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.collection-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(200, 100, 255, 0.8);
+}
+
+.album-title {
+  font-size: 16px;
+  color: #e6ccff;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.album-artist,
+.album-year {
+  color: #b999ff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* 💜 Remove Button */
+.remove-btn {
+  background: transparent;
+  color: #e6ccff;
+  border: 1px solid #b366ff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.remove-btn:hover {
+  background: linear-gradient(90deg, #8a2be2, #a855f7);
+  color: white;
+  box-shadow: 0 0 12px #c77dff;
+}
+
+/* 🎶 Placeholder if no image */
+.placeholder {
+  width: 100%;
+  height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #b366ff;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+/* 🎵 Add More Buttons Container */
+.add-more-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px auto;
+  width: 80%;
+  max-width: 900px;
+}
+
+/* �� Add Buttons Styling */
+.add-btn {
+  background: linear-gradient(90deg, #8a2be2, #a855f7);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(155, 0, 255, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+.add-btn:hover {
+  background: linear-gradient(90deg, #b366ff, #c77dff);
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(195, 120, 255, 0.7);
+}
+
+/* 🎚 Position Tweaks */
+.left-btn {
+  margin-left: 40px;
+}
+
+.right-btn {
+  margin-right: 40px;
+}
+
+/* 🎵 VinylVerse Login Page Theme */
+
+/* 🖤 Background Gradient */
+body.sessions-new {
+   background-color: #000; /* solid black */
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* 💜 Login Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(155, 0, 255, 0.4);
+  width: 380px;
+  margin: 100px auto;
+  padding: 35px 40px;
+  text-align: center;
+  color: #f1e6ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 60px rgba(190, 130, 255, 0.6);
+}
+
+/* 🎧 Header Text */
+.login-card h2 {
+  color: #d3a6ff;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+/* ✉️ Input Fields */
+.login-card input[type="email"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  color: #333;
+  transition: 0.3s ease;
+}
+
+.login-card input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #b366ff;
+}
+
+/* 🔘 Login Button */
+.login-card button,
+.login-card input[type="submit"] {
+  width: 100%;
+  background: linear-gradient(90deg, #8a2be2, #a855f7);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card button:hover,
+.login-card input[type="submit"]:hover {
+  background: linear-gradient(90deg, #b366ff, #dbaaff);
+  box-shadow: 0 0 20px rgba(190, 120, 255, 0.8);
+}
+
+/* 🔙 Back Link */
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #c599ff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: #e6ccff;
+}
+  
+/* 🖤 VinylVerse Login Page — Centered with Black Background */
+
+
+
+/* 💜 Login Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(180, 100, 255, 0.5);
+  width: 380px;
+  padding: 40px 45px;
+  text-align: center;
+  color: #f1e6ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 60px rgba(200, 120, 255, 0.8);
+}
+
+/* 🎧 Header */
+.login-card h2 {
+  color: #d3a6ff;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+/* ✉️ Input Fields */
+.login-card input[type="email"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  color: #222;
+  transition: 0.3s ease;
+}
+
+.login-card input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #b366ff;
+}
+
+/* 🔘 Login Button */
+.login-card input[type="submit"] {
+  width: 100%;
+  background: linear-gradient(90deg, #8a2be2, #a855f7);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 0;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card input[type="submit"]:hover {
+  background: linear-gradient(90deg, #b366ff, #dbaaff);
+  box-shadow: 0 0 25px rgba(190, 120, 255, 0.8);
+}
+
+/* 🔙 Back Link */
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #c599ff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: #e6ccff;
+}
+
+.wishlist-section .album-artist { 
+  position: relative; 
+  z-index: 2;              
+}
+
+.wishlist-section .album-artist a.artist-link {
+  display: inline-block;   
+  position: relative;
+  z-index: 3;              
+  color: #fff !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  pointer-events: auto;    
+}
+
+.album-card form,
+.album-card .remove-btn {
+  position: relative;
+  z-index: 0;
+}

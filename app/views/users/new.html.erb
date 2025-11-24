@@ -1,0 +1,43 @@
+<!-- app/views/users/new.html.erb -->
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="login-title">
+      <span class="icon">🎧</span>
+      Join <span class="highlight">VinylVerse</span>
+    </h1>
+
+    <% if flash[:alert] %>
+      <div style="background: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <%= form_with model: @user, url: signup_path, local: true do |form| %>
+      <div class="input-group">
+        <%= form.label :name, "Name", class: "input-label" %>
+        <%= form.text_field :name, class: "input-field", required: true %>
+      </div>
+
+      <div class="input-group">
+        <%= form.label :email, "Email", class: "input-label" %>
+        <%= form.email_field :email, class: "input-field", required: true %>
+      </div>
+
+      <div class="input-group">
+        <%= form.label :password, "Password", class: "input-label" %>
+        <%= form.password_field :password, class: "input-field", required: true %>
+      </div>
+
+      <div class="input-group">
+        <%= form.label :password_confirmation, "Confirm Password", class: "input-label" %>
+        <%= form.password_field :password_confirmation, class: "input-field", required: true %>
+      </div>
+
+      <%= form.submit "Create Account", class: "btn-login" %>
+    <% end %>
+
+    <p class="back-link" style="text-align: center; margin-top: 20px;">
+      Already have an account? <%= link_to "Login here", login_path, style: "color: #7c3aed; font-weight: 600;" %>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+Rails.application.routes.draw do
+  # Login / Logout
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+
+  # Pages
+  get "home/index"
+  root "home#index"
+
+  # Collection & Wishlist
+  get "collection", to: "albums#collection", as: :collection
+  get "wishlist_items/index"
+  get "collection_items/index"
+
+  # Resources
+  resources :collection_items, only: [:index, :create, :destroy]
+  resources :wishlist_items, only: [:index, :create, :destroy]
+
+  # Search
+  get "send

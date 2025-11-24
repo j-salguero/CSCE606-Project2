@@ -1,17 +1,46 @@
 Rails.application.routes.draw do
+  get "users/new"
+  get "users/create"
+  # Login / Logout
+
+  resources :artists do
+    collection do
+      get :lookup
+    end
+  end
+
   get "login",  to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
   get "wishlist_items/index"
   get "collection_items/index"
+
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
-  get "collection", to: "albums#collection", as: :collection
-  root "albums#index"
+
+  get "signup", to: "users#new"
+  post "signup", to: "users#create"
+  resources :users, only: [:new, :create]
+  # Pages
+  
+  root "sessions#new"
+
+  # Collection & Wishlist
+  get "collection", to: "collection_items#index", as: :collection
+  get "wishlist_items/index"
+  get "collection_items/index"
+
+  # Resources
+  resources :collection_items, only: [:index, :create, :destroy]
+  resources :wishlist_items, only: [:index, :create, :destroy]
+
+  # Search
+  #root "albums#index"
   get "home/index"
-  root "home#index"
+  #root "home#index"
+  get "artists/lookup", to: "artists#lookup", as: :artist_lookup
 
   resources :collection_items, only: [ :index, :create, :destroy ]
   resources :wishlist_items, only: [ :index, :create, :destroy ]

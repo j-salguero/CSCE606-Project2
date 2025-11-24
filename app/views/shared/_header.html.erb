@@ -1,0 +1,35 @@
+<!-- app/views/shared/_header.html.erb -->
+<header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+  <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+    <!-- Logo/Brand -->
+    <div>
+      <%= link_to collection_items_path, style: "text-decoration: none;" do %>
+        <h1 style="color: white; margin: 0; font-size: 1.8rem; font-weight: bold;">
+          🎵 VinylVerse
+        </h1>
+      <% end %>
+    </div>
+
+    <!-- Navigation -->
+    <nav style="display: flex; gap: 20px; align-items: center;">
+      <%= link_to "Search", search_path, style: "color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;" %>
+      <%= link_to "My Collection", collection_items_path, style: "color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;" %>
+      <%= link_to "My Wishlist", wishlist_items_path, style: "color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;" %>
+      
+      <% if logged_in? %>
+        <!-- User Info & Logout -->
+        <div style="display: flex; align-items: center; gap: 15px; padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.3);">
+          <div style="color: white; font-weight: 500;">
+            👤 <%= current_user.name %>
+          </div>
+          <%= button_to "Logout", logout_path, method: :delete, 
+              style: "background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.3s;",
+              onmouseover: "this.style.background='rgba(255,255,255,0.3)'",
+              onmouseout: "this.style.background='rgba(255,255,255,0.2)'" %>
+        </div>
+      <% else %>
+        <%= link_to "Login", login_path, style: "color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; background: rgba(255,255,255,0.2); border-radius: 20px;" %>
+      <% end %>
+    </nav>
+  </div>
+</header>

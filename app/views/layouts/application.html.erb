@@ -1,28 +1,43 @@
+<!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Musiccollection" %></title>
+    <title>VinylVerse</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+    <!-- Only show header if user is logged in and not on login/signup pages -->
+    <% unless controller_name == 'sessions' && action_name == 'new' || controller_name == 'users' && action_name == 'new' %>
+      <% if logged_in? %>
+        <%= render 'shared/header' %>
+      <% end %>
+    <% end %>
+
+    <!-- Flash messages -->
+    <% if notice %>
+      <div style="background: #d1fae5; color: #065f46; padding: 12px 20px; text-align: center;">
+        <%= notice %>
+      </div>
+    <% end %>
+    
+    <% if alert %>
+      <div style="background: #fee2e2; color: #991b1b; padding: 12px 20px; text-align: center;">
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <!-- Main content -->
+    <main style="flex: 1;">
+      <%= yield %>
+    </main>
+
+    <!-- Footer -->
+    <%= render 'shared/footer' %>
   </body>
 </html>
